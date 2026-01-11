@@ -1,6 +1,4 @@
-# If you're using npins, do `adiosPath = sources.adios.outPath;
-# If you're using flakes, don't worry about it - this file will be called
-# automaticlaly
+# Pass the source for adios if you're using npins, not the instantiated module
 { adios }:
 
 let
