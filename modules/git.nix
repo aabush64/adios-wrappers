@@ -86,7 +86,12 @@ in {
       symlinks = {
         "$out/git/config" = options.configFile or (writeText "config" (toGitINI options.settings));
         "$out/git/ignore" =
-          options.ignoreFile or (writeText "ignore" (concatStringsSep "\n" options.ignoredPaths));
+          if options ? ignoreFile then
+            options.ignoreFile
+          else if options ? ignoredPaths then
+            writeText "ignore" (concatStringsSep "\n" options.ignoredPaths)
+          else
+            null;
       };
       environment = {
         XDG_CONFIG_HOME = "$out";
