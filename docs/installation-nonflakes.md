@@ -2,7 +2,7 @@
 
 First, add the relevant sources to your lockfile:
 
-```
+```bash
 npins init # Only if you don't already have an `npins/` folder
 npins add github llakala adios -b providers-and-consumers
 npins add github llakala adios-wrappers -b main
