@@ -1,10 +1,9 @@
 /*
-  nix eval -f dev/generate-docs.nix --json --offline \
-  | jq \
-  | rg -N --color=never --passthru '^  },$' -r "  },"\n \
-  | rg -N --color=never --passthru '(\\\n)"' -r '"' \
-  | rg --passthru --color=never -N '(\\\n)+' -r " " \
-  > docs/options.json
+  nix-instantiate --eval --strict --quiet --json dev/generate-docs.nix \
+    | jq \
+    | sed 's/^  },$/  },\n/' \
+    | sed 's/\\\n"/"/' \
+    | sed -r 's/(\\\n)+/ /g'
 */
 let
   inherit (builtins) mapAttrs getFlake;
