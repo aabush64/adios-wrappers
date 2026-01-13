@@ -16,4 +16,4 @@ in
         mutatorType = option.mutatorType.name;
       }
     ) wrapper.options
-  ) (getFlake (toString ../../.)).wrapperModules
+  ) (getFlake (toString ../.)).wrapperModules

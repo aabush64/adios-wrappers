@@ -19,12 +19,7 @@ jobs:
 
       - name: Generate docs
         run: |
-          nix-instantiate --eval --strict --quiet --json dev/generate-docs/get-docs.nix \
-            | jq \
-            | sed 's/^  },$/  },\n/' \
-            | sed 's/\\n"/"/' \
-            | sed -r 's/(\\n)+/ /g' \
-            > temp.json
+          ./dev/generate-docs.sh > temp.json
 
       - name: Check that generated docs are the same
         run: diff temp.json docs/options.json
