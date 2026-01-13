@@ -114,7 +114,7 @@ overrides = {
 };
 root = {
   name = "root";
-  modules = pkgs.lib.recursivelyUpdate adios-wrappers overrides;
+  modules = pkgs.lib.recursiveUpdate adios-wrappers overrides;
 };
 ```
 
