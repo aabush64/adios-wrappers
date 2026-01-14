@@ -42,8 +42,23 @@
 
   "fish": {
     "abbreviations": {
-      "description": "Custom abbreviations to be injected into the wrapped package. Each attribute should map an abbreviation to its expanded form.",
-      "mutatorType": "attrsOf<union<string,abbrWithCursor>>",
+      "description": "Custom abbreviations to be injected into the wrapped package. When mutating this option, a special API is provided. In this API, each attribute maps an abbreviation to its expansion. The values can either be: - a normal string with no extra logic - a special struct, allowing abbrs to set the location of the cursor on expansion - a list, allowing abbrs to only expand when the commandline starts with a given command See the example for a demo.",
+      "example": {
+        "c": "git commit",
+        "git": [
+          {
+            "m": "merge"
+          },
+          {
+            "rbi": {
+              "expansion": "rebase -i HEAD~%",
+              "setCursor": true
+            }
+          }
+        ],
+        "s": "git status"
+      },
+      "mutatorType": "attrsOf<union<abbr,listOf<attrsOf<abbr>>>>",
       "type": "string"
     },
     "completions": {

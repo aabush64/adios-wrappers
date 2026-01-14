@@ -58,39 +58,79 @@ in {
       description = ''
         Custom abbreviations to be injected into the wrapped package.
 
-        Each attribute should map an abbreviation to its expanded form.
+        When mutating this option, a special API is provided.
+        In this API, each attribute maps an abbreviation to its expansion.
+        The values can either be:
+        - a normal string with no extra logic
+        - a special struct, allowing abbrs to set the location of the cursor on expansion
+        - a list, allowing abbrs to only expand when the commandline starts with a given command
+        See the example for a demo.
       '';
+      example = {
+        s = "git status";
+        c = "git commit";
+        git = [
+          { m = "merge"; }
+          {
+            rbi = {
+              setCursor = true;
+              expansion = "rebase -i HEAD~%";
+            };
+          }
+        ];
+      };
       mutatorType =
         let
           abbrWithCursor = types.struct "abbrWithCursor" {
             setCursor = types.bool;
             expansion = types.string;
           };
+          # Just renamed for a nicer internal name
+          abbrType = types.rename "abbr" (types.union [
+            types.string
+            (abbrWithCursor.override { unknown = false; })
+          ]);
         in
         types.attrsOf (types.union [
-          types.string
-          (abbrWithCursor.override { unknown = false; })
+          abbrType
+          (types.listOf (types.attrsOf abbrType))
         ]);
       mergeFunc =
         { mutators, inputs }:
         let
-          inherit (builtins) isString concatLists concatStringsSep replaceStrings;
-          inherit (inputs.nixpkgs.lib) mapAttrsToList;
-          # We use wrapping single quotes around our abbrs, so replace any
-          # internal single quotes if they exist
-          escapeSingleQuotes = str: replaceStrings [ "'" ] [ "\\'" ] str;
+          inherit (builtins) attrNames concatMap concatStringsSep isAttrs isString replaceStrings;
+
           abbrToString =
-            input: output:
-            if isString output then
-              "abbr --add -- ${input} '${escapeSingleQuotes output}'"
-            else if output.setCursor == true then
-              "abbr --add --set-cursor -- ${input} '${escapeSingleQuotes output.expansion}'"
-            else
-              "abbr --add -- ${input} '${escapeSingleQuotes output.expansion}'";
-          moduleToAbbrList = _: module: mapAttrsToList abbrToString module;
-          allAbbrs = concatLists (mapAttrsToList moduleToAbbrList mutators);
+            abbr: expansion: setCursor: command:
+            "abbr --add "
+            + (if setCursor then "--set-cursor " else "")
+            + (if command != null then "--command ${command} " else "")
+            + "-- ${abbr} '${replaceStrings [ "'" ] [ "\\'" ] expansion}'";
+
+          moduleToAbbrs =
+            command: module:
+            concatMap (
+              abbr:
+              let
+                expansion = module.${abbr};
+              in
+              if isString expansion then
+                [
+                  (abbrToString abbr expansion false command)
+                ]
+              else if isAttrs expansion then
+                [
+                  (abbrToString abbr expansion.expansion expansion.setCursor command)
+                ]
+              else
+                # Note that fish doesn't work with "nested" commands. You would
+                # think `--command 'foo bar' -- b baz` would work. but it
+                # doesn't. While technically the code could recurse twice here,
+                # the type prevents it
+                concatMap (moduleToAbbrs abbr) expansion
+            ) (attrNames module);
         in
-        concatStringsSep "\n" allAbbrs;
+        concatStringsSep "\n" (concatMap (name: moduleToAbbrs null mutators.${name}) (attrNames mutators));
     };
 
     # TODO: add impure variant of this
