@@ -91,7 +91,7 @@ makeDocumentedCWrapper() {
 # ARGS: same as makeWrapper
 makeCWrapper() {
     local argv0 inherit_argv0 n params cmd main flags executable length
-    local uses_sep_surround_check uses_prefix uses_suffix uses_assert uses_assert_success uses_stdio uses_asprintf uses_file_contents
+    local uses_sep_surround_check uses_prefix uses_suffix uses_assert uses_assert_success uses_stdio uses_asprintf reads_from_file
     local flagsBefore=() flagsAfter=()
     executable=$(escapeStringLiteral "$1")
     params=("$@")
@@ -110,7 +110,7 @@ makeCWrapper() {
                 main="$main$cmd"$'\n'
                 uses_stdio=1
                 uses_string=1
-                uses_file_contents=1
+                reads_from_file=1
                 n=$((n + 2))
                 [ $n -ge "$length" ] && main="$main#error makeCWrapper: $p takes 2 arguments"$'\n'
             ;;
@@ -224,7 +224,7 @@ makeCWrapper() {
     [ -z "$uses_string" ]   || printf '%s\n' "#include <string.h>"
     [ -z "$uses_assert_success" ] || printf '\n%s\n' "#define assert_success(e) do { if ((e) < 0) { perror(#e); abort(); } } while (0)"
     [ -z "$uses_sep_surround_check" ] || printf '\n%s\n' "$(setSepSurroundCheck)"
-    [ -z "$uses_file_contents" ] || printf '\n%s\n' "$(setEnvFromFileFn)"
+    [ -z "$reads_from_file" ] || printf '\n%s\n' "$(readFromFileFn)"
     [ -z "$uses_prefix" ] || printf '\n%s\n' "$(setEnvPrefixFn)"
     [ -z "$uses_suffix" ] || printf '\n%s\n' "$(setEnvSuffixFn)"
     [ -z "$resolve_argv0" ] || printf '\n%s\n' "$(resolveArgv0Fn)"
@@ -298,7 +298,9 @@ setEnvFromFile() {
     local key value
     key=$(escapeStringLiteral "$1")
     value=$(escapeStringLiteral "$2")
-    printf '%s' "read_from_file(\"$key\", \"$value\");"
+    printf '%s\n' "char *contents = read_from_file(\"$value\");"
+    printf '%s\n' "setenv(\"$key\", contents, 1);"
+    printf '%s\n' "free(contents);"
     assertValidEnvName "$1"
 }
 
@@ -369,9 +371,9 @@ int is_surrounded_by_sep(char *env, char *ptr, unsigned long len, char *sep) {
 "
 }
 
-setEnvFromFileFn(){
+readFromFileFn(){
   printf "%s" "\
-void read_from_file(char *var, char *filename) {
+char* read_from_file(char *filename) {
   FILE *f = fopen(filename, \"r\");
   if (access(filename, F_OK) != 0) {
     fprintf(stderr, \"%s %s %s\n\", \"File\", filename, \"not found\");
@@ -387,8 +389,7 @@ void read_from_file(char *var, char *filename) {
   fclose(f);
   string[fsize - 1] = 0;
 
-  setenv(var, string, 1);
-  free(string);
+  return string;
 }
 "
 }
