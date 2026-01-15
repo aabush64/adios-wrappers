@@ -2,20 +2,6 @@
 { adios }:
 
 let
-  adiosLib = (import "${adios}/default.nix").adios;
-
-  importModules = import "${adios}/adios/lib/importModules.nix" {
-    # Add my custom types
-    adios = adiosLib // rec {
-      types = adiosLib.types // {
-        null = types.typedef "null" isNull;
-        pathLike = types.union [
-          types.path
-          types.derivation
-          types.string
-        ];
-      };
-    };
-  };
+  adios' = (import "${adios}/default.nix").adios;
 in
-importModules ./modules
+adios'.lib.importModules ./modules

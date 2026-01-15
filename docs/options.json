@@ -2,7 +2,7 @@
   "bat": {
     "configFile": {
       "description": "File containing the flags to be appended by default when running bat. Disjoint with the `flags` option.",
-      "type": "union<path,derivation,string>"
+      "type": "pathLike"
     },
     "flags": {
       "description": "Flags to be appended by default when running bat. Disjoint with the `configFile` option.",
@@ -24,7 +24,7 @@
   "firefox": {
     "autoConfigFiles": {
       "description": "`autoconfig.js` files to be injected into the wrapped package. See the Firefox documentation: https://support.mozilla.org/en-US/kb/customizing-firefox-using-autoconfig",
-      "type": "listOf<union<path,derivation,string>>"
+      "type": "listOf<pathLike>"
     },
     "package": {
       "description": "The Firefox package to be wrapped. Note that this should use a `-unwrapped` variant.",
@@ -36,7 +36,7 @@
     },
     "policiesFiles": {
       "description": "JSON files containing policies to be injected into the wrapped package. To inject preferences, code like this can be used: ```json {   \"policies\": {     \"Preferences\": {       \"YOUR_PREFERENCES\": \"here\"     }   } } ``` See the Firefox documentation: https://support.mozilla.org/en-US/kb/customizing-firefox-using-policiesjson Disjoint with the `policies` option.",
-      "type": "listOf<union<path,derivation,string>>"
+      "type": "listOf<pathLike>"
     }
   },
 
@@ -67,8 +67,8 @@
     },
     "completionsFiles": {
       "description": "Files containing custom completions to be injected into the wrapped package. Disjoint with the `completions` option.",
-      "mutatorType": "listOf<union<path,derivation,string>>",
-      "type": "listOf<union<path,derivation,string>>"
+      "mutatorType": "listOf<pathLike>",
+      "type": "listOf<pathLike>"
     },
     "functions": {
       "description": "Custom functions to be injected into the wrapped package. Each attribute should map the name of a function to inline fish script defining its functionality. Disjoint with the `functionsFiles` option.",
@@ -76,8 +76,8 @@
     },
     "functionsFiles": {
       "description": "Files containing custom functions to be injected into the wrapped package. Disjoint with the `functions` option.",
-      "mutatorType": "listOf<union<path,derivation,string>>",
-      "type": "listOf<union<path,derivation,string>>"
+      "mutatorType": "listOf<pathLike>",
+      "type": "listOf<pathLike>"
     },
     "interactiveShellInit": {
       "description": "Shell initialization code to be automatically injected into the wrapped package. Only ran when Fish is initalized interactively.",
@@ -93,7 +93,7 @@
   "gh": {
     "configDir": {
       "description": "Folder containing gh configuration files to be injected into the wrapped package. This folder should contain a `config.yml` and/or a `hosts.yml`. Disjoint with the `settings` and `hosts` options.",
-      "type": "union<path,derivation,string>"
+      "type": "pathLike"
     },
     "hosts": {
       "description": "Host information to be injected into the wrapped package's `hosts.yml`. Disjoint with the `configDir` option.",
@@ -112,11 +112,11 @@
   "git": {
     "configFile": {
       "description": "`gitconfig` file to be injected into the wrapped package. See the git documentation on the syntax of this file: https://git-scm.com/docs/git-config#_configuration_file And the documentation on valid options: https://git-scm.com/docs/git-config#_variables Disjoint with the `settings` option.",
-      "type": "union<path,derivation,string>"
+      "type": "pathLike"
     },
     "ignoreFile": {
       "description": "File containing extra path globs to be ignored automatically, along with the repo-specific `.gitignore`. Disjoint with the `ignoredPaths` option.",
-      "type": "union<path,derivation,string>"
+      "type": "pathLike"
     },
     "ignoredPaths": {
       "description": "Extra path globs to be ignored automatically, along with the repo-specific `.gitignore`. Disjoint with the `ignoreFile` option.",
@@ -136,7 +136,7 @@
   "kitty": {
     "configFile": {
       "description": "`kitty.conf` file to be injected into the wrapped package. See the kitty documentation: https://sw.kovidgoyal.net/kitty/conf.html Disjoint with the `settings` option.",
-      "type": "union<path,derivation,string>"
+      "type": "pathLike"
     },
     "package": {
       "description": "The kitty package to be wrapped.",
@@ -153,14 +153,14 @@
     },
     "themeFile": {
       "description": "Path containing a Kitty theme to be used.",
-      "type": "union<path,derivation,string>"
+      "type": "pathLike"
     }
   },
 
   "less": {
     "configFile": {
       "description": "`lesskey` file to be injected into the wrapped package. This file doesn't just contain keybinds, but can also set flags with the `#env` section. See the documentation for valid options: https://man7.org/linux/man-pages/man1/lesskey.1.html Disjoint with the `flags` option.",
-      "type": "union<path,derivation,string>"
+      "type": "pathLike"
     },
     "flags": {
       "description": "Flags to be automatically appended when running less. See the documentation for valid options: https://man7.org/linux/man-pages/man1/less.1.html#:~:text=OPTIONS,-top Disjoint with the `configFile` option.",
@@ -180,7 +180,7 @@
     "environment": {
       "default": {},
       "description": "Environment variables to be set during the execution of the wrapped program",
-      "type": "attrsOf<union<null,union<path,derivation,string>,readFromFileAtRuntime>>"
+      "type": "attrsOf<union<null,pathLike,readFromFileAtRuntime>>"
     },
     "extraPaths": {
       "default": [],
@@ -213,7 +213,7 @@
     "symlinks": {
       "default": {},
       "description": "Symlinks to be included in the resulting derivation. Each key specifies the location within the derivation to create the symlink. Each value specifies where the symlink should be directed to.",
-      "type": "attrsOf<union<null,union<path,derivation,string>>>"
+      "type": "attrsOf<union<null,pathLike>>"
     },
     "wrapperArgs": {
       "default": "",
@@ -239,7 +239,7 @@
     },
     "configFile": {
       "description": "`config.nu` file to be injected into the wrapped package. See the nushell documentation on file syntax: https://www.nushell.sh/book/configuration.html Disjoint with the `config` option.",
-      "type": "union<path,derivation,string>"
+      "type": "pathLike"
     },
     "environment": {
       "description": "Attrset of environment variables to be injected into the wrapped packages `config.nu`. See the nushell documentation for valid options: https://www.nushell.sh/book/configuration.html Example: ``` {   HELLO = \"test\";   FOO = \"3\"; } ``` Maps to: ``` $env.HELLO = \"test\" $env.FOO = \"3\" ``` Disjoint with the `environmentFile` option.",
@@ -248,7 +248,7 @@
     },
     "environmentFile": {
       "description": "`env.nu` file to be injected into the wrapped package. See the nushell documentaion on file sytax: https://www.nushell.sh/book/configuration.html Disjoint with the `environment` option.",
-      "type": "union<path,derivation,string>"
+      "type": "pathLike"
     },
     "package": {
       "description": "The nushell package to be wrapped.",
@@ -259,7 +259,7 @@
   "ripgrep": {
     "configFile": {
       "description": "`ripgreprc` file, containing flags to be automatically appended when running ripgrep. See the documentation of valid flags: https://manpages.ubuntu.com/manpages/jammy/man1/rg.1.html#:~:text=OPTIONS This file should have each flag on its own line. See the documentation of the file's format: https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md#configuration-file Disjoint with the `configFile` option.",
-      "type": "union<path,derivation,string>"
+      "type": "pathLike"
     },
     "flags": {
       "description": "Flags to be automatically appended when running ripgrep. See the documentation of valid flags: https://manpages.ubuntu.com/manpages/jammy/man1/rg.1.html#:~:text=OPTIONS Disjoint with the `configFile` option.",
@@ -274,7 +274,7 @@
   "starship": {
     "configFile": {
       "description": "`starship.toml` file to be injected into the wrapped package. See the documentation for valid options: https://starship.rs/config/ Disjoint with the `settings` option.",
-      "type": "union<path,derivation,string>"
+      "type": "pathLike"
     },
     "package": {
       "description": "The starship package to be wrapped.",
@@ -295,7 +295,7 @@
   "termfilechooser": {
     "configFile": {
       "description": "Configuration file to be injected into the wrapped package. See the termfilechooser documentation for valid options: https://github.com/hunkyburrito/xdg-desktop-portal-termfilechooser#configuration",
-      "type": "union<path,derivation,string>"
+      "type": "pathLike"
     },
     "package": {
       "description": "The xdg-desktop-portal-termfilechooser package to be wrapped.",
@@ -318,7 +318,7 @@
     },
     "initLuaFile": {
       "description": "`init.lua` file to be injected into the wrapped package. See the documentation on how to use the Yazi API: https://yazi-rs.github.io/docs/plugins/overview Disjoint with the `initLua` option.",
-      "type": "union<path,derivation,string>"
+      "type": "pathLike"
     },
     "keymap": {
       "description": "Keybinds injected into the wrapped package's `keymap.toml`. See the documentation for valid options: https://yazi-rs.github.io/docs/configuration/keymap Disjoint with the `keymapFile` option.",
@@ -326,7 +326,7 @@
     },
     "keymapFile": {
       "description": "`keymap.toml` file to be injected into the wrapped package. See the documentation for valid options: https://yazi-rs.github.io/docs/configuration/keymap Disjoint with the `keymap` option.",
-      "type": "union<path,derivation,string>"
+      "type": "pathLike"
     },
     "package": {
       "description": "The yazi package to be wrapped. Note that this should use a `-unwrapped` variant.",
@@ -334,7 +334,7 @@
     },
     "plugins": {
       "description": "Attribute set of plugins to be injected into the wrapped package. Each attribute should map the name of a plugin (suffixed with `.yazi`) to the path or derivation containing the plugin's contents.",
-      "type": "attrsOf<union<path,derivation,string>>"
+      "type": "attrsOf<pathLike>"
     },
     "settings": {
       "description": "Settings to be injected into the wrapped package's `yazi.toml`. See the documentation for valid options: https://yazi-rs.github.io/docs/configuration/yazi Disjoint with the `settingsFile` option.",
@@ -342,7 +342,7 @@
     },
     "settingsFile": {
       "description": "`yazi.toml` file to be injected into the wrapped package. See the documentation for valid options: https://yazi-rs.github.io/docs/configuration/yazi Disjoint with the `settings` option.",
-      "type": "union<path,derivation,string>"
+      "type": "pathLike"
     }
   },
 
