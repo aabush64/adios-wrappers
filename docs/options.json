@@ -109,6 +109,25 @@
     }
   },
 
+  "fuzzel": {
+    "configFile": {
+      "description": "`fuzzel.ini` file to be injected into the wrapped package. See the documentation for syntax and valid options: https://codeberg.org/dnkl/fuzzel/src/branch/master/doc/fuzzel.ini.5.scd Disjoint with the `settings` option.",
+      "type": "pathLike"
+    },
+    "flags": {
+      "description": "Flags to be appended by default when running fuzzel. See the documentation for valid options: https://codeberg.org/dnkl/fuzzel/src/branch/master/doc/fuzzel.1.scd *Not* disjoint with `settings/configFile` but conflicting settings between the configuration and set flags may have unexpected behavior. Setting --config= and passing/generating a configuration *will* throw an assert error.",
+      "type": "listOf<string>"
+    },
+    "package": {
+      "description": "The fuzzel package to be wrapped.",
+      "type": "derivation"
+    },
+    "settings": {
+      "description": "Settings to be injected into the wrapped package's `fuzzel.ini`. See the documentation for valid options: https://codeberg.org/dnkl/fuzzel/src/branch/master/doc/fuzzel.ini.5.scd Disjoint with the `configFile` option.",
+      "type": "attrs"
+    }
+  },
+
   "gh": {
     "configDir": {
       "description": "Folder containing gh configuration files to be injected into the wrapped package. This folder should contain a `config.yml` and/or a `hosts.yml`. Disjoint with the `settings` and `hosts` options.",
