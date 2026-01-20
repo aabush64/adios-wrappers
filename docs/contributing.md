@@ -4,7 +4,7 @@ More modules and options are always welcome. However, they're expected to follow
 
 ## RFC42 and impure options
 
-Each option should have an RFC42 variant and an impure path variant.
+Each option should aim to have an RFC42 variant and an impure path variant.
 
 An RFC42 option is what you're familiar with from nixos or home-manager, where the attribute set is automatically
 transformed into the correct language.
