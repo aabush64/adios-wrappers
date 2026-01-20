@@ -6,8 +6,8 @@ in
   name = "nushell";
 
   inputs = {
-    nixpkgs.path = "/nixpkgs";
     mkWrapper.path = "/mkWrapper";
+    nixpkgs.path = "/nixpkgs";
   };
 
   options = {
