@@ -84,13 +84,13 @@
       "description": "The eza package to be wrapped.",
       "type": "derivation"
     },
-    "themeConfig": {
-      "description": "Settings to be injected into the wrapped package's `theme.yml`. See `https://github.com/eza-community/eza/blob/main/man/eza_colors-explanation.5.md` for valid options Disjoint with the `themeFile` option.",
-      "type": "attrs"
-    },
     "themeFile": {
       "description": "`theme.yml` file to be injected into the wrapped package. See `https://github.com/eza-community/eza/blob/main/man/eza_colors-explanation.5.md` for valid options Disjoint with the `themeConfig` option.",
       "type": "pathLike"
+    },
+    "themes": {
+      "description": "Settings to be injected into the wrapped package's `theme.yml`. See `https://github.com/eza-community/eza/blob/main/man/eza_colors-explanation.5.md` for valid options Disjoint with the `themeFile` option.",
+      "type": "attrs"
     }
   },
 

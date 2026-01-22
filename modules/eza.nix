@@ -18,7 +18,7 @@ in {
       '';
     };
 
-    themeConfig = {
+    themes = {
       type = types.attrs;
       description = ''
         Settings to be injected into the wrapped package's `theme.yml`.
