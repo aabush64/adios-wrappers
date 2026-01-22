@@ -28,6 +28,7 @@ in {
         https://github.com/hunkyburrito/xdg-desktop-portal-termfilechooser#configuration
       '';
     };
+
     package = {
       type = types.derivation;
       description = "The xdg-desktop-portal-termfilechooser package to be wrapped.";

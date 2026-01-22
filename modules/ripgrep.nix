@@ -35,6 +35,7 @@ in {
         Disjoint with the `configFile` option.
       '';
     };
+
     package = {
       type = types.derivation;
       description = "The ripgrep package to be wrapped.";

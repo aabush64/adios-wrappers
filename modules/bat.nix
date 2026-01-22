@@ -26,6 +26,7 @@ in {
         Disjoint with the `flags` option.
       '';
     };
+
     package = {
       type = types.derivation;
       description = "The bat package to be wrapped.";
