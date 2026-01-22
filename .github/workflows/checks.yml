@@ -24,6 +24,7 @@ jobs:
       - name: Check that generated docs are the same
         run: diff temp.json docs/options.json
   check-formatting:
+    runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v30
         with:
