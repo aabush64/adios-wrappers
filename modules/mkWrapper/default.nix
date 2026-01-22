@@ -1,6 +1,13 @@
 { adios }:
 let
   inherit (adios) types;
+  nullOr =
+    other:
+    types.union [
+      types.null
+      other
+    ];
+  optionalString = x: if x != null then x else "";
 in {
   name = "mkWrapper";
 
@@ -34,20 +41,20 @@ in {
     };
 
     preWrap = {
-      type = types.string;
+      type = nullOr types.string;
       description = "Commands to be run before the wrapping process in the build steps.";
-      default = "";
+      default = null;
     };
     postWrap = {
-      type = types.string;
+      type = nullOr types.string;
       description = "Commands to be run after the wrapping process in the build steps.";
-      default = "";
+      default = null;
     };
 
     wrapperArgs = {
-      type = types.string;
+      type = nullOr types.string;
       description = "Extra args passed directly to wrapProgram.";
-      default = "";
+      default = null;
     };
     environment = {
       type = types.attrsOf (
@@ -64,12 +71,7 @@ in {
       default = {};
     };
     symlinks = {
-      type = types.attrsOf (
-        types.union [
-          types.null
-          types.pathLike
-        ]
-      );
+      type = types.attrsOf (nullOr types.pathLike);
       description = ''
         Symlinks to be included in the resulting derivation.
         Each key specifies the location within the derivation to create the symlink.
@@ -138,17 +140,17 @@ in {
         for i in $(cat $pathsPath); do
           ${lndir}/bin/lndir -silent $i $out
         done
-        ${options.preWrap}
+        ${optionalString options.preWrap}
         ${symlinkedStr}
         ${
           if environmentStr == "" && options.wrapperArgs == "" && options.flags == [] then
             ""
           else
             ''
-              wrapProgram ${options.binaryPath} ${environmentStr} ${flagsStr} ${options.wrapperArgs}
+              wrapProgram ${options.binaryPath} ${environmentStr} ${flagsStr} ${optionalString options.wrapperArgs}
             ''
         }
-        ${options.postWrap}
+        ${optionalString options.postWrap}
       '';
     };
 }

@@ -328,14 +328,14 @@
       "type": "derivation"
     },
     "postWrap": {
-      "default": "",
+      "default": null,
       "description": "Commands to be run after the wrapping process in the build steps.",
-      "type": "string"
+      "type": "union<null,string>"
     },
     "preWrap": {
-      "default": "",
+      "default": null,
       "description": "Commands to be run before the wrapping process in the build steps.",
-      "type": "string"
+      "type": "union<null,string>"
     },
     "symlinks": {
       "default": {},
@@ -343,9 +343,9 @@
       "type": "attrsOf<union<null,pathLike>>"
     },
     "wrapperArgs": {
-      "default": "",
+      "default": null,
       "description": "Extra args passed directly to wrapProgram.",
-      "type": "string"
+      "type": "union<null,string>"
     }
   },
 
