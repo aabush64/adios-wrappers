@@ -467,7 +467,6 @@
       "type": "listOf<derivation>"
     },
     "flavors": {
-      "default": {},
       "description": "Attribute set of flavors to be injected into the wrapped package. Each attribute should map the name of a flavor (suffixed with `.yazi`) to the path or derivation containing the flavor's contents.",
       "type": "attrsOf<pathLike>"
     },
@@ -492,7 +491,6 @@
       "type": "derivation"
     },
     "plugins": {
-      "default": {},
       "description": "Attribute set of plugins to be injected into the wrapped package. Each attribute should map the name of a plugin (suffixed with `.yazi`) to the path or derivation containing the plugin's contents.",
       "type": "attrsOf<pathLike>"
     },

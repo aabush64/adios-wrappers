@@ -128,7 +128,6 @@ in {
     };
     plugins = {
       type = types.attrsOf types.pathLike;
-      default = {};
       description = ''
         Attribute set of plugins to be injected into the wrapped package.
 
@@ -137,7 +136,6 @@ in {
     };
     flavors = {
       type = types.attrsOf types.pathLike;
-      default = {};
       description = ''
         Attribute set of flavors to be injected into the wrapped package.
 
@@ -160,6 +158,7 @@ in {
       inherit (inputs.nixpkgs.lib) makeBinPath;
       inherit (inputs.nixpkgs.pkgs) formats;
       inherit (builtins) listToAttrs attrNames;
+      optionalAttrs = cond: attrs: if cond then attrs else {};
       generator = formats.toml {};
     in
     assert !(options ? settings && options ? settingsFile);
@@ -201,17 +200,21 @@ in {
           else
             null;
       }
-      // listToAttrs (
-        map (name: {
-          name = "$out/yazi/plugins/${name}";
-          value = options.plugins.${name};
-        }) (attrNames options.plugins)
+      // optionalAttrs (options ? plugins) (
+        listToAttrs (
+          map (name: {
+            name = "$out/yazi/plugins/${name}";
+            value = options.plugins.${name};
+          }) (attrNames options.plugins)
+        )
       )
-      // listToAttrs (
-        map (name: {
-          name = "$out/yazi/flavors/${name}";
-          value = options.flavors.${name};
-        }) (attrNames options.flavors)
+      // optionalAttrs (options ? flavors) (
+        listToAttrs (
+          map (name: {
+            name = "$out/yazi/flavors/${name}";
+            value = options.flavors.${name};
+          }) (attrNames options.flavors)
+        )
       );
       wrapperArgs = ''
         --prefix PATH : ${makeBinPath options.extraPackages}
