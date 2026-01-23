@@ -21,12 +21,7 @@ in {
         Disjoint with the `configFile` option.
       '';
       mutatorType = types.string;
-      mergeFunc =
-        { mutators, options }:
-        let
-          inherit (builtins) attrValues concatStringsSep;
-        in
-        concatStringsSep "\n" (attrValues mutators);
+      mergeFunc = adios.lib.mergeFuncs.concatLines;
     };
     configFile = {
       type = types.pathLike;

@@ -56,19 +56,20 @@ using `lib.recursiveUpdate`. The function works like this:
 
 ```nix
 # before
-lib.recursiveUpdate
-{
-  nested = {
-    a = 1;
-    b = 2;
-  };
-}
-{
-  nested = {
-    a = 7;
-    c = 25;
-  };
-}
+lib.recursiveUpdate [
+  {
+    nested = {
+      a = 1;
+      b = 2;
+    };
+  }
+  {
+    nested = {
+      a = 7;
+      c = 25;
+    };
+  }
+]
 
 # after
 {
@@ -121,5 +122,5 @@ root = {
 And replace the second TODO comment with:
 ```nix
 in
-builtins.mapAttrs (_: module: module {}) wrapperModules.root.modules
+builtins.mapAttrs (_: module: module {}) wrapperModules.modules
 ```

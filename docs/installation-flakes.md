@@ -43,7 +43,7 @@ let
     modules = # TODO
   };
 
-  wrapperModules = (adios root).eval {
+  wrapperModules = adios root {
     options = {
       "/nixpkgs" = {
         inherit pkgs;

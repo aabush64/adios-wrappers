@@ -14,10 +14,10 @@ let
     modules = outputs.wrapperModules;
   };
 
-  tree = (adios root).eval {
+  tree = adios root {
     options = {
       "/nixpkgs" = { inherit pkgs; };
     };
   };
 in
-tree.root.modules
+tree.modules

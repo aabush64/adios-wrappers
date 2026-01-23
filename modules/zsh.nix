@@ -19,12 +19,7 @@ in {
         Disjoint with the `zshrcFiles` option.
       '';
       mutatorType = types.string;
-      mergeFunc =
-        { mutators, options }:
-        let
-          inherit (builtins) attrValues concatStringsSep;
-        in
-        concatStringsSep "\n" (attrValues mutators);
+      mergeFunc = adios.lib.mergeFuncs.concatLines;
     };
     extraZshrc = {
       type = types.string;
@@ -34,12 +29,7 @@ in {
         Disjoint with the `zshrcFiles` option.
       '';
       mutatorType = types.string;
-      mergeFunc =
-        { mutators, options }:
-        let
-          inherit (builtins) attrValues concatStringsSep;
-        in
-        concatStringsSep "\n" (attrValues mutators);
+      mergeFunc = adios.lib.mergeFuncs.concatLines;
     };
     zshrcFiles = {
       type = types.listOf types.pathLike;
