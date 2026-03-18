@@ -3,8 +3,7 @@ First, add the repo to your flake inputs:
 ```nix
 inputs = {
   adios = {
-    # Make sure to use this branch!
-    url = "github:llakala/adios/providers-and-consumers";
+    url = "github:llakala/adios";
   };
   adios-wrappers = {
     url = "github:llakala/adios-wrappers";
