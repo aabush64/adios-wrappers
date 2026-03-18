@@ -1,7 +1,5 @@
 { types, ... }:
 {
-  name = "firefox";
-
   inputs = {
     nixpkgs.path = "/nixpkgs";
   };

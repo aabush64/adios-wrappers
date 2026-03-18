@@ -1,7 +1,5 @@
 { types, ... }:
 {
-  name = "termfilechooser";
-
   inputs = {
     mkWrapper.path = "/mkWrapper";
     nixpkgs.path = "/nixpkgs";

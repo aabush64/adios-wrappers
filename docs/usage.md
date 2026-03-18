@@ -20,7 +20,6 @@ with:
 
 ```nix
 root = {
-  name = "root";
   modules = adios-wrappers;
 };
 ```
@@ -114,7 +113,6 @@ overrides = {
   };
 };
 root = {
-  name = "root";
   modules = pkgs.lib.recursiveUpdate adios-wrappers overrides;
 };
 ```

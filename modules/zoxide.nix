@@ -1,7 +1,5 @@
 { types, ... }:
 {
-  name = "zoxide";
-
   inputs = {
     mkWrapper.path = "/mkWrapper";
     nixpkgs.path = "/nixpkgs";

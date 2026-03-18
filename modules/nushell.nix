@@ -1,7 +1,5 @@
 { types, ... } @ adios:
 {
-  name = "nushell";
-
   inputs = {
     mkWrapper.path = "/mkWrapper";
     nixpkgs.path = "/nixpkgs";

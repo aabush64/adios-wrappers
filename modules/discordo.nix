@@ -1,7 +1,5 @@
 { types, ... }:
 {
-  name = "discordo";
-
   inputs = {
     mkWrapper.path = "/mkWrapper";
     nixpkgs.path = "/nixpkgs";

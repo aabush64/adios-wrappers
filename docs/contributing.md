@@ -19,8 +19,6 @@ Here's an example module that adds both:
 
 ```nix
 {
-  name = "foo";
-
   inputs = {
     nixpkgs.path = "/nixpkgs";
     mkWrapper.path = "/mkWrapper";

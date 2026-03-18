@@ -1,7 +1,5 @@
 { types, ... }:
 {
-  name = "swaybg";
-
   inputs = {
     mkWrapper.path = "/mkWrapper";
     nixpkgs.path = "/nixpkgs";

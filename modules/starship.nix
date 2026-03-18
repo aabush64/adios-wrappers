@@ -1,7 +1,5 @@
 { types, ... } @ adios:
 {
-  name = "starship";
-
   inputs = {
     mkWrapper.path = "/mkWrapper";
     nixpkgs.path = "/nixpkgs";

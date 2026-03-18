@@ -1,7 +1,5 @@
 { types, ... } @ adios:
 {
-  name = "fish";
-
   inputs = {
     mkWrapper.path = "/mkWrapper";
     nixpkgs.path = "/nixpkgs";

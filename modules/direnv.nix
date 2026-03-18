@@ -1,7 +1,5 @@
 { types, ... }:
 {
-  name = "direnv";
-
   inputs = {
     mkWrapper.path = "/mkWrapper";
     nixpkgs.path = "/nixpkgs";

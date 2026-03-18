@@ -1,7 +1,5 @@
 { types, ... } @ adios:
 {
-  name = "git";
-
   inputs = {
     mkWrapper.path = "/mkWrapper";
     nixpkgs.path = "/nixpkgs";

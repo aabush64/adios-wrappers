@@ -1,7 +1,5 @@
 { types, ... }:
 {
-  name = "zellij";
-
   inputs = {
     mkWrapper.path = "/mkWrapper";
     nixpkgs.path = "/nixpkgs";

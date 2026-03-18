@@ -1,7 +1,5 @@
 { types, ... }:
 {
-  name = "nixpkgs";
-
   options = {
     pkgs = {
       type = types.attrs;

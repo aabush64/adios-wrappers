@@ -1,7 +1,5 @@
 { types, ... }:
 {
-  name = "ripgrep";
-
   inputs = {
     mkWrapper.path = "/mkWrapper";
     nixpkgs.path = "/nixpkgs";

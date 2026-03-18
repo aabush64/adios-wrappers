@@ -8,8 +8,6 @@ let
     ];
   optionalString = x: if x != null then x else "";
 in {
-  name = "mkWrapper";
-
   inputs = {
     nixpkgs.path = "/nixpkgs";
   };
