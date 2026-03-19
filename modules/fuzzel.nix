@@ -39,10 +39,7 @@
           delimitNth = types.string;
           noEmpty = types.bool;
         }).override
-          {
-            total = false;
-            unknown = false;
-          };
+          { total = false; };
       description = ''
         Dmenu related flags to pass to fuzzel when using `settings`/`configFile`
 
@@ -61,10 +58,7 @@
           noSyslog = types.bool;
           printTiming = types.bool;
         }).override
-          {
-            total = false;
-            unknown = false;
-          };
+          { total = false; };
       description = ''
         Logging related flags to pass to fuzzel when using `settings`/`configFile`
 
