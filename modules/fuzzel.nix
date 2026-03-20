@@ -82,7 +82,7 @@
       inherit (inputs.nixpkgs.pkgs) writeText;
       inherit (inputs.nixpkgs.lib) optionals;
       inherit (inputs.nixpkgs.lib.generators) toIni;
-      inherit (builtins) head concatLists;
+      inherit (builtins) head;
     in
     assert (
       if options ? dmenuFlags then
