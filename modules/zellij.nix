@@ -33,7 +33,7 @@
     };
 
     layoutsContents = {
-      type = types.attrsOf types.str;
+      type = types.attrsOf types.string;
       description = ''
         Custom layouts to be injected into the wrapped package.
 
