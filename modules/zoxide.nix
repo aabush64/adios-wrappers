@@ -32,13 +32,13 @@
   mutations."/fish".interactiveShellInit =
     { inputs, options }:
     let
-      inherit (inputs.nixpkgs) lib;
+      inherit (inputs.nixpkgs.lib) getExe;
       inherit (builtins) concatStringsSep;
       finalWrapper = options {};
     in
     # fish
     ''
-      ${lib.getExe finalWrapper} init fish ${concatStringsSep " " options.flags} | source
+      ${getExe finalWrapper} init fish ${concatStringsSep " " options.flags} | source
     '';
 
   impl =

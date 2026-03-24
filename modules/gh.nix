@@ -46,10 +46,10 @@
     "/git".settings =
       { inputs, options }:
       let
-        inherit (inputs.nixpkgs) lib;
+        inherit (inputs.nixpkgs.lib) getExe;
         finalWrapper = options {};
       in {
-        credential."https://github.com".helper = "${lib.getExe finalWrapper} auth git-credential";
+        credential."https://github.com".helper = "${getExe finalWrapper} auth git-credential";
       };
   };
 

@@ -74,11 +74,11 @@
     { options, inputs }:
     let
       finalWrapper = options {};
-      inherit (inputs.nixpkgs) lib;
+      inherit (inputs.nixpkgs.lib) getExe;
     in
     # fish
     ''
-      ${lib.getExe finalWrapper} init fish | source
+      ${getExe finalWrapper} init fish | source
     '';
 
   impl = { options, inputs }: inputs.mkWrapper options.wrapperAttrs;
