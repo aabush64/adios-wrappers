@@ -78,10 +78,6 @@
     let
       inherit (inputs.nixpkgs.pkgs) writeText;
       inherit (inputs.nixpkgs.lib.generators) toJSON;
-    in
-    assert !(options ? settings && options ? configFile);
-    assert !(options ? barStyle && options ? cssFile);
-    let
       configFlag =
         if options ? configFile then
           [ "--config=${options.configFile}" ]
@@ -97,6 +93,8 @@
         else
           [];
     in
+    assert !(options ? settings && options ? configFile);
+    assert !(options ? barStyle && options ? cssFile);
     inputs.mkWrapper {
       name = "waybar";
       inherit (options) package;

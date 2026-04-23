@@ -103,12 +103,12 @@
 
   impl =
     { options, inputs }:
-    assert !(options ? settings && options ? configFile);
-    assert !(options ? direnvrc && options ? direnvrcFile);
     let
       inherit (inputs.nixpkgs.pkgs) formats writeText nix-direnv;
       generator = formats.toml {};
     in
+    assert !(options ? settings && options ? configFile);
+    assert !(options ? direnvrc && options ? direnvrcFile);
     inputs.mkWrapper {
       inherit (options) package;
       preSymlink = ''

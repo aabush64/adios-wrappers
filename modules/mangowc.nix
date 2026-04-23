@@ -59,8 +59,6 @@
 
   impl =
     { options, inputs }:
-    assert !(options ? configFile && options ? settings);
-    assert !(options ? autostartContents && options ? autostartFile);
     let
       inherit (inputs.nixpkgs.pkgs) writeText;
       inherit (inputs.nixpkgs.lib.generators) toKeyValue;
@@ -82,6 +80,8 @@
         else
           [];
     in
+    assert !(options ? configFile && options ? settings);
+    assert !(options ? autostartContents && options ? autostartFile);
     inputs.mkWrapper {
       inherit (options) package;
       name = "mango";

@@ -40,7 +40,6 @@
 
   impl =
     { options, inputs }:
-    assert !(options ? shellInit && options ? configFile);
     let
       inherit (inputs.nixpkgs.pkgs) writeText;
 
@@ -52,6 +51,7 @@
         else
           null;
     in
+    assert !(options ? shellInit && options ? configFile);
     inputs.mkWrapper {
       name = "nu";
       inherit (options) package;

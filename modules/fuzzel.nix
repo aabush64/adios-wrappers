@@ -83,21 +83,6 @@
       inherit (inputs.nixpkgs.lib) optionals;
       inherit (inputs.nixpkgs.lib.generators) toIni;
       inherit (builtins) head;
-    in
-    assert (
-      if options ? dmenuFlags then
-        (options ? settings || options ? configFile)
-      else
-        true
-    );
-    assert (
-      if options ? logFlags then
-        (options ? settings || options ? configFile)
-      else
-        true
-    );
-    assert !(options ? settings && options ? configFile);
-    let
       dmenuFlags =
         if options ? dmenuFlags then
           optionals (options.dmenuFlags ? dmenu && options.dmenuFlags.dmenu) [ "--dmenu" ]
@@ -129,6 +114,19 @@
           [];
       flags = dmenuFlags ++ logsFlags ++ configFlag;
     in
+    assert (
+      if options ? dmenuFlags then
+        (options ? settings || options ? configFile)
+      else
+        true
+    );
+    assert (
+      if options ? logFlags then
+        (options ? settings || options ? configFile)
+      else
+        true
+    );
+    assert !(options ? settings && options ? configFile);
     inputs.mkWrapper {
       name = "fuzzel";
       inherit (options) package;
