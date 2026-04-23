@@ -95,13 +95,9 @@
     inputs.mkWrapper {
       name = "irssi";
       inherit (options) package;
-      preSymlink =
-        if options ? config then
-          ''
-            mkdir -p $out/irssi
-          ''
-        else
-          null;
+      preSymlink = ''
+        mkdir -p $out/irssi
+      '';
       symlinks = {
         "$out/irssi/config" = if options ? config then writeText "config" options.config else null;
         "$out/irssi" = if options ? configDir then options.configDir else null;
