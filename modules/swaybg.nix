@@ -48,7 +48,7 @@
       inherit (options) package;
       symlinks = {
         # Unnecessary as `backgroundImage` can be passed directly to `-i` but this assists with debugging.
-        "$out/backgroundImage" = if options ? backgroundImage then options.backgroundImage else null;
+        "$out/backgroundImage" = options.backgroundImage or null;
       };
       flags =
         (optionals (options ? color) [
