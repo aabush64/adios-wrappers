@@ -42,7 +42,6 @@
     { options, inputs }:
     let
       inherit (inputs.nixpkgs.pkgs) writeText;
-
       configNu =
         if options ? configFile then
           options.configFile
