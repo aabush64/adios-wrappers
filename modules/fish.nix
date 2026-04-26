@@ -98,7 +98,7 @@
       mergeFunc =
         { mutators, inputs }:
         let
-          inherit (builtins) attrNames concatMap concatStringsSep isAttrs isString replaceStrings;
+          inherit (builtins) attrNames attrValues concatMap concatStringsSep isAttrs isString replaceStrings;
 
           abbrToString =
             abbr: expansion: setCursor: command:
@@ -130,7 +130,7 @@
                 concatMap (moduleToAbbrs abbr) expansion
             ) (attrNames module);
         in
-        concatStringsSep "\n" (concatMap (name: moduleToAbbrs null mutators.${name}) (attrNames mutators));
+        concatStringsSep "\n" (concatMap (moduleToAbbrs null) (attrValues mutators));
     };
 
     # TODO: add impure variant of this
