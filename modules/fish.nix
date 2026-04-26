@@ -173,14 +173,13 @@
     assert !(options ? functions && options ? functionsFiles);
     inputs.mkWrapper {
       inherit (options) package;
-      symlinks = (
-        if options ? interactiveShellInit then
-          {
-            "$out/share/fish/vendor_conf.d/config.fish" = writeText "config.fish" options.interactiveShellInit;
-          }
-        else
-          {}
-      )
+      symlinks = {
+        "$out/share/fish/vendor_conf.d/config.fish" =
+          if options ? interactiveShellInit then
+            writeText "config.fish" options.interactiveShellInit
+          else
+            null;
+      }
       // (
         if options ? completionsFiles then
           listToAttrs (
