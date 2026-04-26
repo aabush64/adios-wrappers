@@ -64,4 +64,8 @@
         EZA_CONFIG_HOME = "$out/eza-config";
       };
     };
+
+  meta = {
+    maintainers = [ "mango" ];
+  };
 }
