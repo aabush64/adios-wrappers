@@ -100,7 +100,7 @@
       '';
       symlinks = {
         "$out/irssi/config" = if options ? config then writeText "config" options.config else null;
-        "$out/irssi" = if options ? configDir then options.configDir else null;
+        "$out/irssi" = options.configDir or null;
       };
       flags = homeFlag ++ configFlag ++ autoconnectFlag ++ nicknameFlag ++ hostnameFlag;
     };
