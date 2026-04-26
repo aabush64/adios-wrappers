@@ -46,4 +46,8 @@
       }
     else
       options.package;
+
+  meta = {
+    maintainers = [ "llakala" ];
+  };
 }

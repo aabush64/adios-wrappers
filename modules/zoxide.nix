@@ -49,4 +49,8 @@
         _ZO_EXCLUDE_DIRS = options.excludedDirs or null;
       };
     };
+
+  meta = {
+    maintainers = [ "llakala" ];
+  };
 }

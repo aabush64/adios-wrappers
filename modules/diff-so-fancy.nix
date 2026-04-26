@@ -26,4 +26,8 @@
         GIT_CONFIG_GLOBAL = "${gitWrapper}/git/config";
       };
     };
+
+  meta = {
+    maintainers = [ "llakala" ];
+  };
 }

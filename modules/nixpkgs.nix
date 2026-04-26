@@ -9,4 +9,8 @@
       defaultFunc = { options }: options.pkgs.lib;
     };
   };
+
+  meta = {
+    maintainers = [ "llakala" ];
+  };
 }

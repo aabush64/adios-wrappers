@@ -223,4 +223,8 @@
         YAZI_CONFIG_HOME = "$out/yazi";
       };
     };
+
+  meta = {
+    maintainers = [ "llakala" ];
+  };
 }

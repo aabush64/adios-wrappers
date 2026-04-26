@@ -98,4 +98,8 @@
           GH_CONFIG_DIR = "$out/gh";
         };
       };
+
+  meta = {
+    maintainers = [ "llakala" ];
+  };
 }

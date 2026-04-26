@@ -54,4 +54,8 @@
           RIPGREP_CONFIG_PATH = options.configFile or null;
         };
       };
+
+  meta = {
+    maintainers = [ "llakala" ];
+  };
 }

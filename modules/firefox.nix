@@ -82,4 +82,8 @@
         else
           null;
     });
+
+  meta = {
+    maintainers = [ "llakala" ];
+  };
 }

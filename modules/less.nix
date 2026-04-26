@@ -54,4 +54,8 @@
         LESSKEYIN = options.configFile or null;
       };
     };
+
+  meta = {
+    maintainers = [ "llakala" ];
+  };
 }

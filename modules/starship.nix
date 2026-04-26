@@ -82,4 +82,8 @@
     '';
 
   impl = { options, inputs }: inputs.mkWrapper options.wrapperAttrs;
+
+  meta = {
+    maintainers = [ "llakala" ];
+  };
 }

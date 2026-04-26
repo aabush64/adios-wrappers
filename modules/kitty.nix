@@ -109,4 +109,8 @@
         KITTY_CONFIG_DIRECTORY = "$out/kitty";
       };
     };
+
+  meta = {
+    maintainers = [ "llakala" ];
+  };
 }
