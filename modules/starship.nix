@@ -78,7 +78,7 @@
     in
     # fish
     ''
-      ${getExe finalWrapper} init fish | source
+      ${getExe finalWrapper} init fish --print-full-init | source
     '';
 
   impl = { options, inputs }: inputs.mkWrapper options.wrapperAttrs;
