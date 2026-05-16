@@ -95,7 +95,7 @@ in {
   impl =
     let
       inherit (builtins) attrNames concatMap concatStringsSep;
-      optionalString = x: if x != null then x else "";
+      ifNotNull = x: if x != null then x else "";
       passAsFile = [
         "buildCommand"
         "paths"
@@ -154,18 +154,18 @@ in {
         for i in $(cat $pathsPath); do
           ${lndir}/bin/lndir -silent $i $out
         done
-        ${optionalString options.preSymlink}
+        ${ifNotNull options.preSymlink}
         ${symlinkedStr}
-        ${optionalString options.preWrap}
+        ${ifNotNull options.preWrap}
         ${
           if environmentStr == "" && options.wrapperArgs == "" && options.flags == [] then
             ""
           else
             ''
-              wrapProgram ${options.binaryPath} ${environmentStr} ${flagsStr} ${optionalString options.wrapperArgs}
+              wrapProgram ${options.binaryPath} ${environmentStr} ${flagsStr} ${ifNotNull options.wrapperArgs}
             ''
         }
-        ${optionalString options.postWrap}
+        ${ifNotNull options.postWrap}
       '';
     };
 }
