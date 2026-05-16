@@ -94,10 +94,12 @@ in {
   };
 
   impl =
+    let
+      inherit (builtins) attrNames concatMap concatStringsSep;
+    in
     { options, inputs }:
     let
       inherit (inputs.nixpkgs.pkgs) stdenvNoCC callPackage lndir;
-      inherit (builtins) attrNames concatMap concatStringsSep;
       makeBinaryWrapper = callPackage ./makeBinaryWrapper/package.nix {};
       environmentStr = concatStringsSep " " (
         concatMap (
