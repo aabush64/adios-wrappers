@@ -100,7 +100,12 @@
           inherit (builtins) attrNames attrValues concatMap concatStringsSep isAttrs isString replaceStrings;
           escapeQuotes = replaceStrings [ "'" ] [ "\\'" ];
           abbrToString =
-            abbr: expansion: setCursor: command:
+            {
+              setCursor ? false,
+              command,
+              abbr,
+              expansion
+            }:
             "abbr --add "
             + (if setCursor then "--set-cursor " else "")
             + (if command != null then "--command ${command} " else "")
@@ -114,11 +119,16 @@
               in
               if isString expansion then
                 [
-                  (abbrToString abbr expansion false command)
+                  (abbrToString {
+                    inherit command abbr expansion;
+                  })
                 ]
               else if isAttrs expansion then
                 [
-                  (abbrToString abbr expansion.expansion expansion.setCursor command)
+                  (abbrToString {
+                    inherit command abbr;
+                    inherit (expansion) setCursor expansion;
+                  })
                 ]
               else
                 # Note that fish doesn't work with "nested" commands. You would
