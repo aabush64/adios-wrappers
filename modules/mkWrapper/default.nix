@@ -96,6 +96,10 @@ in {
     let
       inherit (builtins) attrNames concatMap concatStringsSep;
       optionalString = x: if x != null then x else "";
+      passAsFile = [
+        "buildCommand"
+        "paths"
+      ];
     in
     { options, inputs }:
     let
@@ -143,10 +147,7 @@ in {
       preferLocalBuild = true;
       allowSubstitutes = false;
       enableParallelBuilding = true;
-      passAsFile = [
-        "buildCommand"
-        "paths"
-      ];
+      inherit passAsFile;
 
       buildCommand = ''
         mkdir -p $out
