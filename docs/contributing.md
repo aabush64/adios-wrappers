@@ -79,6 +79,13 @@ Here's an example module that adds both:
 }
 ```
 
+## Choosing where to source your generators
+
+There are lots of ways to turn a `settings` option into a file that can be used in `symlinks`. However, where possible,
+we prefer to source from `pkgs.formats`. Formats automatically create a file for you, so the wrappers don't have to call
+`writeTextFile` themselves. Formats are also the standard for repos like nixpkgs and home-manager. If you have the
+choice between using something from `builtins`, `lib.generators`, or `pkgs.formats`, please choose formats!
+
 ## Description guidelines
 
 All newly introduced options should come with descriptions. These descriptions should follow the established format
