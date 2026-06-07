@@ -35,7 +35,8 @@
   impl =
     { options, inputs }:
     let
-      generator = inputs.nixpkgs.pkgs.formats.toml {};
+      inherit (inputs.nixpkgs.pkgs) formats;
+      generator = formats.toml {};
     in
     assert !(options ? settings && options ? configFile);
     inputs.mkWrapper {

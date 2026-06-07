@@ -43,8 +43,9 @@
         { mutators, options, inputs }:
         let
           inherit (inputs.nixpkgs.lib) recursiveUpdate;
+          inherit (inputs.nixpkgs.pkgs) formats;
           inherit (adios.lib) merge;
-          generator = inputs.nixpkgs.pkgs.formats.toml {};
+          generator = formats.toml {};
           default =
             assert !(options ? settings && options ? configFile);
             {
