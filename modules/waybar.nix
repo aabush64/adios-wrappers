@@ -76,13 +76,13 @@
   impl =
     { options, inputs }:
     let
-      inherit (inputs.nixpkgs.pkgs) writeText;
-      inherit (inputs.nixpkgs.lib.generators) toJSON;
+      inherit (inputs.nixpkgs.pkgs) writeText formats;
+      generator = formats.json {};
       configFlag =
         if options ? configFile then
           [ "--config=${options.configFile}" ]
         else if options ? settings then
-          [ "--config=${writeText "config.jsonc" (toJSON options.settings)}" ]
+          [ "--config=${generator.generate "config.jsonc" options.settings}" ]
         else
           [];
       styleFlag =

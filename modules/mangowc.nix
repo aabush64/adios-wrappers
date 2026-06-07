@@ -60,9 +60,8 @@
   impl =
     { options, inputs }:
     let
-      inherit (inputs.nixpkgs.pkgs) writeText;
-      inherit (inputs.nixpkgs.lib.generators) toKeyValue;
-      generator = attrs: writeText (toKeyValue {} attrs);
+      inherit (inputs.nixpkgs.pkgs) writeText formats;
+      generator = formats.keyValue {};
       configFlag =
         if options ? configFile || options ? settings then
           [
@@ -90,7 +89,7 @@
           if options ? configFile then
             options.configFile
           else if options ? settings then
-            generator options.settings
+            generator.generate "config.conf" options.settings
           else
             null;
         "$out/mango/autostart.sh" =

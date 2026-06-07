@@ -45,8 +45,8 @@
   impl =
     { options, inputs }:
     let
-      inherit (inputs.nixpkgs.pkgs) writeText;
-      inherit (inputs.nixpkgs.lib.generators) toJSON;
+      inherit (inputs.nixpkgs.pkgs) formats;
+      generator = formats.json {};
     in
     assert !(options ? themeConfig && options ? themeFile);
     inputs.mkWrapper {
@@ -56,7 +56,7 @@
           if options ? themeFile then
             options.themeFile
           else if options ? themeConfig then
-            writeText "theme" (toJSON options.themeConfig)
+            generator.generate "theme.yml" options.themeConfig
           else
             null;
       };

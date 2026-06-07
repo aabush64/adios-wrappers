@@ -79,10 +79,10 @@
   impl =
     { options, inputs }:
     let
-      inherit (inputs.nixpkgs.pkgs) writeText;
-      inherit (inputs.nixpkgs.lib) optionals;
-      inherit (inputs.nixpkgs.lib.generators) toIni;
       inherit (builtins) head;
+      inherit (inputs.nixpkgs.lib) optionals;
+      inherit (inputs.nixpkgs.pkgs) formats;
+      generator = formats.ini {};
       dmenuFlags =
         if options ? dmenuFlags then
           optionals (options.dmenuFlags ? dmenu && options.dmenuFlags.dmenu) [ "--dmenu" ]
@@ -109,7 +109,7 @@
         if options ? configFile then
           [ "--config=${options.configFile}" ]
         else if options ? settings then
-          [ "--config=${writeText "fuzzel.ini" (toIni options.settings)}" ]
+          [ "--config=${generator.generate "fuzzel.ini" options.settings}" ]
         else
           [];
       flags = dmenuFlags ++ logsFlags ++ configFlag;

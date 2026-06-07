@@ -68,8 +68,8 @@
     { options, inputs }:
     let
       inherit (builtins) concatStringsSep;
-      inherit (inputs.nixpkgs.pkgs) writeText;
-      inherit (inputs.nixpkgs.lib.generators) toGitINI;
+      inherit (inputs.nixpkgs.pkgs) writeText formats;
+      generator = formats.gitIni {};
     in
     assert !(options ? settings && options ? configFile);
     assert !(options ? ignoredPaths && options ? ignoreFile);
@@ -81,7 +81,7 @@
           if options ? configFile then
             options.configFile
           else if options ? settings then
-            (writeText "config" (toGitINI options.settings))
+            generator.generate "config" options.settings
           else
             null;
         "$out/git/ignore" =
