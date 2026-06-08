@@ -14,7 +14,7 @@
       '';
     };
 
-    themes = {
+    theme = {
       type = types.attrs;
       description = ''
         Settings to be injected into the wrapped package's `theme.yml`.
@@ -48,15 +48,15 @@
       inherit (inputs.nixpkgs.pkgs) formats;
       generator = formats.json {};
     in
-    assert !(options ? themeConfig && options ? themeFile);
+    assert !(options ? theme && options ? themeFile);
     inputs.mkWrapper {
       inherit (options) package flags;
       symlinks = {
         "$out/eza-config/theme.yml" =
           if options ? themeFile then
             options.themeFile
-          else if options ? themeConfig then
-            generator.generate "theme.yml" options.themeConfig
+          else if options ? theme then
+            generator.generate "theme.yml" options.theme
           else
             null;
       };
