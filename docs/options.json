@@ -476,22 +476,22 @@
     "postWrap": {
       "default": null,
       "description": "Commands to be run after the wrapping process in the build steps.",
-      "type": "union<null,string>"
+      "type": "nullOr<string>"
     },
     "preWrap": {
       "default": null,
       "description": "Commands to be run before the wrapping process in the build steps.",
-      "type": "union<null,string>"
+      "type": "nullOr<string>"
     },
     "symlinks": {
       "default": {},
       "description": "Symlinks to be included in the resulting derivation. Each key specifies the location within the derivation to create the symlink. Each value specifies where the symlink should be directed to.",
-      "type": "attrsOf<union<null,pathLike>>"
+      "type": "attrsOf<nullOr<pathLike>>"
     },
     "wrapperArgs": {
       "default": null,
       "description": "Extra args passed directly to wrapProgram.",
-      "type": "union<null,string>"
+      "type": "nullOr<string>"
     }
   },
 

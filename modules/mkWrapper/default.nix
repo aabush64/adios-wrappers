@@ -1,12 +1,8 @@
 { types, ... }:
 let
-  nullOr =
-    other:
-    types.union [
-      types.null
-      other
-    ];
-in {
+  nullOrString = types.nullOr types.string;
+in
+{
   inputs = {
     nixpkgs.from = { parent }: parent.nixpkgs;
   };
@@ -36,17 +32,17 @@ in {
       defaultFunc = { options }: "$out/bin/${options.name}";
     };
     preWrap = {
-      type = nullOr types.string;
+      type = nullOrString;
       description = "Commands to be run before the wrapping process in the build steps.";
       default = null;
     };
     postWrap = {
-      type = nullOr types.string;
+      type = nullOrString;
       description = "Commands to be run after the wrapping process in the build steps.";
       default = null;
     };
     wrapperArgs = {
-      type = nullOr types.string;
+      type = nullOrString;
       description = "Extra args passed directly to wrapProgram.";
       default = null;
     };
@@ -65,7 +61,7 @@ in {
       default = {};
     };
     symlinks = {
-      type = types.attrsOf (nullOr types.pathLike);
+      type = types.attrsOf (types.nullOr types.pathLike);
       description = ''
         Symlinks to be included in the resulting derivation.
         Each key specifies the location within the derivation to create the symlink.
