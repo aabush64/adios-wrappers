@@ -3,7 +3,7 @@
 
   outputs = inputs: {
     wrapperModules = import ./default.nix {
-      adios = inputs.adios;
+      adios = inputs.adios.adios;
     };
   };
 }

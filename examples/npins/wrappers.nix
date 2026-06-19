@@ -5,7 +5,7 @@
 let
   inherit (pkgs) lib;
   adios = import "${sources.adios}/adios";
-  adios-wrappers = import sources.adios-wrappers { adios = sources.adios; };
+  adios-wrappers = import sources.adios-wrappers { inherit adios; };
 
   root = {
     name = "root";
