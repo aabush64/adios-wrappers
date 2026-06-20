@@ -3,9 +3,7 @@
 let
   warn = builtins.warn or builtins.trace;
   adios =
-    if builtins.isAttrs args.adios then
-    args.adios
-    else
+    if builtins.isPath args.adios || args.adios ? outPath then
       warn ''
         The adios-wrappers 'default.nix' now expects to be passed an instantiated `adios` function, rather than the source.
 
@@ -18,9 +16,9 @@ let
         ```
           adios = import sources.adios;
           adios-wrappers = import sources.adios-wrappers { inherit adios; }
-        ```
-
-      '' (import args.adios);
+        ```'' (import args.adios)
+    else
+      args.adios;
 in
 
 adios.lib.importModules ./modules
