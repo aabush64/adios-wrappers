@@ -817,6 +817,21 @@
     }
   },
 
+  "wiremix": {
+    "configFile": {
+      "description": "`wiremix.toml` file to be injected into the wrapped package. See the documentation for syntax and valid options: https://github.com/tsowell/wiremix/blob/main/wiremix.toml Disjoint with the `settings` option.",
+      "type": "pathLike"
+    },
+    "package": {
+      "description": "The wiremix package to be wrapped.",
+      "type": "derivation"
+    },
+    "settings": {
+      "description": "Settings to be injected into the wrapped package's `wiremix.toml`. See the documentation for syntax and valid options: https://github.com/tsowell/wiremix/blob/main/wiremix.toml Disjoint with the `configFile` option.",
+      "type": "attrs"
+    }
+  },
+
   "yazi": {
     "extraPackages": {
       "description": "Packages to be automatically added as Yazi dependencies. This defaults to the optionalDeps of the Yazi package in nixpkgs, set here: https://github.com/NixOS/nixpkgs/blob/master/pkgs/by-name/ya/yazi/package.nix#L8 The dependency `File` is added regardless of the content of this option, because it's non-optional. See the Yazi docs on this topic: https://yazi-rs.github.io/docs/installation",
