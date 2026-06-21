@@ -1,0 +1,61 @@
+{ types, ... }: {
+  inputs = {
+    mkWrapper.from = { parent }: parent.mkWrapper;
+    nixpkgs.from = { parent }: parent.nixpkgs;
+  };
+
+  options = {
+    settings = {
+      type = types.attrs;
+      description = ''
+        Settings to be injected into the wrapped package's `wiremix.toml`.
+
+        See the documentation for syntax and valid options:
+        https://github.com/tsowell/wiremix/blob/main/wiremix.toml
+
+        Disjoint with the `configFile` option.
+      '';
+    };
+    configFile = {
+      type = types.pathLike;
+      description = ''
+        `wiremix.toml` file to be injected into the wrapped package.
+
+        See the documentation for syntax and valid options:
+        https://github.com/tsowell/wiremix/blob/main/wiremix.toml
+
+        Disjoint with the `settings` option.
+      '';
+    };
+
+    package = {
+      type = types.derivation;
+      description = "The wiremix package to be wrapped.";
+      defaultFunc = { inputs }: inputs.nixpkgs.pkgs.wiremix;
+    };
+  };
+
+  impl =
+    { options, inputs }:
+    let
+      inherit (inputs.nixpkgs) pkgs;
+      inherit (inputs.nixpkgs.pkgs) writeText;
+      generator = pkgs.formats.toml {};
+    in
+    assert !(options ? settings && options ? configFile);
+    inputs.mkWrapper {
+      inherit (options) package;
+      symlinks = {
+        "$out/wiremix/wiremix.toml" =
+          if options ? configFile then
+            options.configFile
+          else if options ? settings then
+            generator.generate "wiremix.toml" options.settings
+          else
+            null;
+      };
+      environment = {
+        XDG_CONFIG_HOME = "$out";
+      };
+    };
+}
