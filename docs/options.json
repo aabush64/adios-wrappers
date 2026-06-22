@@ -426,7 +426,7 @@
         "port": "6697",
         "server": "irc.libera.chat"
       },
-      "type": "union<autoconnectWithoutPassword,autoconnect>"
+      "type": "autoconnect"
     },
     "config": {
       "description": "The config to be injected into the wrapped package. See the documentation for valid options: https://irssi.org/documentation/settings/ Disjoint with the `configDir` option.",

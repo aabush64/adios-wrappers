@@ -30,17 +30,11 @@
     };
 
     autoconnect = {
-      type = types.union [
-        (types.struct "autoconnectWithoutPassword" {
-          server = types.string;
-          port = types.string;
-        })
-        (types.struct "autoconnect" {
-          server = types.string;
-          password = types.string;
-          port = types.string;
-        })
-      ];
+      type = types.struct "autoconnect" {
+        server = types.string;
+        password = types.optionalAttr types.string;
+        port = types.string;
+      };
       description = ''
         The server to be automatically connected to.
       '';
