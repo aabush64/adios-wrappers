@@ -28,6 +28,7 @@
         Disjoint with the `settings` option.
       '';
     };
+
     direnvrc = {
       type = types.string;
       description = ''
@@ -46,6 +47,7 @@
         https://direnv.net/#the-stdlib
       '';
     };
+
     package = {
       type = types.derivation;
       description = "The direnv package to be wrapped.";

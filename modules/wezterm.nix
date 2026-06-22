@@ -17,7 +17,6 @@
         Disjoint with the `configFile` option.
       '';
     };
-
     configFile = {
       type = types.pathLike;
       description = ''

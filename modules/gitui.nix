@@ -43,7 +43,6 @@
         branch_find = {};
       };
     };
-
     keybindsFile = {
       type = types.pathLike;
       description = ''
@@ -77,7 +76,6 @@
         page_down = "▼";
       };
     };
-
     symbolsFile = {
       type = types.pathLike;
       description = ''
@@ -112,7 +110,6 @@
         selection_fg = "#ffffff";
       };
     };
-
     themeFile = {
       type = types.pathLike;
       description = ''

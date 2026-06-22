@@ -142,6 +142,7 @@
         Each attribute should map the name of a flavor (suffixed with `.yazi`) to the path or derivation containing the flavor's contents.
       '';
     };
+
     package = {
       type = types.derivation;
       description = ''

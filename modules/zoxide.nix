@@ -16,12 +16,14 @@
       '';
       default = [];
     };
+
     excludedDirs = {
       type = types.string;
       description = ''
         Directory globs that won't be added to the database when navigating with zoxide.
       '';
     };
+
     package = {
       type = types.derivation;
       description = "The zoxide package to be wrapped.";

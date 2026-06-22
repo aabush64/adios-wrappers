@@ -35,6 +35,7 @@
         Disjoint with the `settings` and `hosts` options.
       '';
     };
+
     package = {
       type = types.derivation;
       description = "The gh package to be wrapped.";

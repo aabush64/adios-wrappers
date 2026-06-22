@@ -21,7 +21,6 @@
         compinit -d ~/.cache/zsh/.zcompdump -C
       '';
     };
-
     extraZshrc = {
       type = types.string;
       description = ''
@@ -43,7 +42,6 @@
       mutatorType = types.listOf types.pathLike;
       mergeFunc = adios.lib.merge.lists.concat;
     };
-
     extraZshrcFiles = {
       type = types.listOf types.pathLike;
       description = ''

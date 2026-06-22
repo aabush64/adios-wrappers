@@ -28,6 +28,7 @@
         Disjoint with the `settings` option.
       '';
     };
+
     autostartContents = {
       type = types.string;
       description = ''
@@ -50,6 +51,7 @@
         Disjoint with the `autostartContents` option.
       '';
     };
+
     package = {
       type = types.derivation;
       description = "The mangowc package to be wrapped.";

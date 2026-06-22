@@ -26,6 +26,7 @@
       mutatorType = types.listOf types.pathLike;
       mergeFunc = adios.lib.merge.lists.concat;
     };
+
     extraPackages = {
       type = types.listOf types.derivation;
       description = ''
@@ -34,6 +35,7 @@
       mutatorType = types.listOf types.derivation;
       mergeFunc = adios.lib.merge.lists.concat;
     };
+
     package = {
       type = types.derivation;
       description = "The nushell package to be wrapped.";

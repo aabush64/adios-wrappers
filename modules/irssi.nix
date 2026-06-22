@@ -49,7 +49,6 @@
       type = types.string;
       description = "The default nickname to be injected into the wrapped package.";
     };
-
     hostname = {
       type = types.string;
       description = "The default hostname to be injected into the wrapped package.";

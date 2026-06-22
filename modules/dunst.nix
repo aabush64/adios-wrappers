@@ -28,6 +28,7 @@
         Disjoint with the `configContents` option.
       '';
     };
+
     dropinFiles = {
       type = types.listOf types.pathLike;
       description = ''

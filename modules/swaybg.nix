@@ -11,12 +11,10 @@
       description = "Hex formatted background color to be displayed by the wrapped package.";
       example = "ffffff";
     };
-
     backgroundImage = {
       type = types.pathLike;
       description = "Path to the background image to be displayed by the wrapped package.";
     };
-
     scalingMode = {
       type = types.string;
       description = ''
@@ -25,7 +23,6 @@
         See the documentation for valid modes: https://man.archlinux.org/man/extra/swaybg/swaybg.1.en#OPTIONS
       '';
     };
-
     outputName = {
       type = types.string;
       description = "Name of the output to be used by the wrapped package.";
