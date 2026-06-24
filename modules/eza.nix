@@ -14,7 +14,7 @@
       '';
     };
 
-    themes = {
+    theme = {
       type = types.attrs;
       description = ''
         Settings to be injected into the wrapped package's `theme.yml`.
@@ -55,13 +55,13 @@
         "$out/eza-config/theme.yml" =
           if options ? themeFile then
             options.themeFile
-          else if options ? themeConfig then
-            generator.generate "theme.yml" options.themeConfig
+          else if options ? theme then
+            generator.generate "theme.yml" options.theme
           else
             null;
       };
       environment = {
-        EZA_CONFIG_HOME = "$out/eza-config";
+        EZA_CONFIG_DIR = "$out/eza-config";
       };
     };
 
