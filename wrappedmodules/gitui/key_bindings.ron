@@ -1,0 +1,16 @@
+(
+file_history: Some(( code: F(2), modifiers: "")),
+goto_line: Some(( code: Char('g'), modifiers: "CONTROL")),
+move_down: Some(( code: Char('j'), modifiers: "")),
+move_left: Some(( code: Char('h'), modifiers: "")),
+move_right: Some(( code: Char('l'), modifiers: "")),
+move_up: Some(( code: Char('k'), modifiers: "")),
+open_help: Some(( code: F(1), modifiers: "NONE")),
+popup_down: Some(( code: Char('j'), modifiers: "")),
+popup_up: Some(( code: Char('k'), modifiers: "")),
+shift_down: Some(( code: Char('J'), modifiers: "SHIFT")),
+shift_up: Some(( code: Char('K'), modifiers: "SHIFT")),
+stash_open: Some(( code: Char('l'), modifiers: "")),
+tree_collapse_recursive: Some(( code: Char('H'), modifiers: "SHIFT")),
+tree_expand_recursive: Some(( code: Char('L'), modifiers: "SHIFT")),
+)

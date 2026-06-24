@@ -1,0 +1,93 @@
+{
+  "broken_symlink": { "background": "#CC241D", "foreground": "#FBF1C7" },
+  "colorful": true,
+  "date": { "foreground": "#D79921" },
+  "filekinds":
+    {
+      "block_device": { "background": "#32302F", "foreground": "#D79921" },
+      "directory": { "foreground": "#458588" },
+      "normal": { "foreground": "#EBDBB2" },
+      "symlink": { "foreground": "#8EC07C" },
+    },
+  "git":
+    {
+      "conflicted": { "foreground": "#D3869B" },
+      "deleted": { "foreground": "#FB4934" },
+      "ignored": { "foreground": "#FE8019" },
+      "modified": { "foreground": "#FABD2F" },
+      "new": { "foreground": "#B8BB26" },
+      "renamed": { "foreground": "#8EC07C" },
+    },
+  "header":
+    {
+      "foreground": "#EBDBB2",
+      "is_bold": true,
+      "is_italic": false,
+      "is_underline": true,
+    },
+  "links":
+    {
+      "multi_link_file": { "foreground": "#FABD2F" },
+      "normal": { "foreground": "#83A598" },
+    },
+  "octal": { "foreground": "#CC241D", "is_italic": true },
+  "punctuation": { "foreground": "#BDAE93" },
+  "size":
+    {
+      "number_byte": { "foreground": "#CC241D", "is_bold": false },
+      "number_giga": { "foreground": "#D79921", "is_bold": false },
+      "number_huge": { "foreground": "#B16286", "is_bold": false },
+      "number_kilo": { "foreground": "#98971A", "is_bold": false },
+      "number_mega": { "foreground": "#458588", "is_bold": false },
+      "unit_byte": { "foreground": "#CC241D", "is_bold": false },
+      "unit_giga": { "foreground": "#D79921", "is_bold": false },
+      "unit_huge": { "foreground": "#B16286", "is_bold": false },
+      "unit_kilo": { "foreground": "#98971A", "is_bold": false },
+      "unit_mega": { "foreground": "#458588", "is_bold": false },
+    },
+  "users":
+    {
+      "group_other":
+        {
+          "background": "#32361A",
+          "foreground": "#EBDBB2",
+          "is_bold": false,
+          "is_italic": false,
+        },
+      "group_root":
+        {
+          "background": "#3C1F1E",
+          "foreground": "#EBDBB2",
+          "is_bold": true,
+          "is_italic": true,
+        },
+      "group_yours":
+        {
+          "background": "#32361A",
+          "foreground": "#EBDBB2",
+          "is_bold": false,
+          "is_italic": true,
+        },
+      "user_other":
+        {
+          "background": "#0D3138",
+          "foreground": "#FBF1C7",
+          "is_bold": false,
+          "is_italic": false,
+        },
+      "user_root":
+        {
+          "background": "#3C1F1E",
+          "foreground": "#FBF1C7",
+          "is_bold": true,
+          "is_italic": true,
+        },
+      "user_you":
+        {
+          "background": "#32361A",
+          "foreground": "#FBF1C7",
+          "is_bold": false,
+          "is_italic": true,
+        },
+    },
+}
