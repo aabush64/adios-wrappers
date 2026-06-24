@@ -12,7 +12,7 @@ let
   adios = inputs.adios.adios;
 
   root = {
-    modules = outputs.wrapperModules;
+    modules = pkgs.lib.recursiveUpdate outputs.wrapperModules (adios.lib.importModules ../wrappedmodules);
   };
 
   tree = adios root {
