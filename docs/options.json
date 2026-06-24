@@ -403,6 +403,21 @@
     }
   },
 
+  "hydrus": {
+    "clientFlags": {
+      "description": "List of hydrus-client flags to pass to hydrus client on startup. Note that paths passed to db_dir/temp_dir should be writable (not in the nix store) See the documentation for valid syntax and formatting of the related flags: https://hydrusnetwork.github.io/hydrus/launch_arguments.html",
+      "type": "listOf<string>"
+    },
+    "package": {
+      "description": "The hydrus package to be wrapped.",
+      "type": "derivation"
+    },
+    "serverFlags": {
+      "description": "List of hydrus-server flags to pass to hydrus server on startup. These flags only apply to hydrus-server, and are not required for basic client-only use, see: https://hydrusnetwork.github.io/hydrus/youDontWantTheServer.html Note that paths passed to db_dir/temp_dir should be writable (not in the nix store) See the documentation for valid syntax and formatting of the related flags: https://hydrusnetwork.github.io/hydrus/launch_arguments.html",
+      "type": "listOf<string>"
+    }
+  },
+
   "hyfetch": {
     "configFile": {
       "description": "`hyfetch.json` file to be injected into the wrapped package. Unwrapped hyfetch configurations can be created via: `hyfetch --config-file hyfetch.json --config` Disjoint with the `settings` option.",
@@ -880,6 +895,37 @@
     "themeFile": {
       "description": "`theme.toml` file to be injected into the wrapped package. See the documentation for valid options: https://yazi-rs.github.io/docs/configuration/theme/ Disjoint with the `theme` option.",
       "type": "pathLike"
+    }
+  },
+
+  "zathura": {
+    "keybinds": {
+      "description": "Keybindings to be injected into the wrapped package's `zathurarc`. See the zathurarc documentation for the full list of possible mappings: {manpage}`zathurarc(5)`. You can create a mode-specific mapping by specifying the mode before the key: `\"[normal] <C-b>\" = \"scroll left\";`. Disjoint with the `sourceFiles` option.",
+      "example": {
+        "<Right>": "navigate next",
+        "D": "toggle_page_mode",
+        "[fullscreen] <C-i>": "zoom in"
+      },
+      "mutatorType": "attrs",
+      "type": "attrs"
+    },
+    "package": {
+      "description": "The zathura package to be wrapped.",
+      "type": "derivation"
+    },
+    "settings": {
+      "description": "Options to be injected into the wrapped package's `zathurarc`. See the zathurarc documentation for the full list of options: {manpage}`zathurarc(5)`. Disjoint with the `sourceFiles` option.",
+      "example": {
+        "default-bg": "#000000",
+        "default-fg": "#FFFFFF"
+      },
+      "mutatorType": "attrs",
+      "type": "attrs"
+    },
+    "sourceFiles": {
+      "description": "A list of paths to source in the `zathurarc` file. This can be used to import extra files, and can be used with impurity. See the zathurarc documentation for valid options: {manpage}`zathurarc(5)`. Disjoint with `settings` and `keybinds` options.",
+      "mutatorType": "listOf<pathLike>",
+      "type": "listOf<pathLike>"
     }
   },
 
