@@ -141,13 +141,13 @@
       "description": "The eza package to be wrapped.",
       "type": "derivation"
     },
+    "theme": {
+      "description": "Settings to be injected into the wrapped package's `theme.yml`. See `https://github.com/eza-community/eza/blob/main/man/eza_colors-explanation.5.md` for valid options Disjoint with the `themeFile` option.",
+      "type": "attrs"
+    },
     "themeFile": {
       "description": "`theme.yml` file to be injected into the wrapped package. See `https://github.com/eza-community/eza/blob/main/man/eza_colors-explanation.5.md` for valid options Disjoint with the `themeConfig` option.",
       "type": "pathLike"
-    },
-    "themes": {
-      "description": "Settings to be injected into the wrapped package's `theme.yml`. See `https://github.com/eza-community/eza/blob/main/man/eza_colors-explanation.5.md` for valid options Disjoint with the `themeFile` option.",
-      "type": "attrs"
     }
   },
 
@@ -548,12 +548,12 @@
 
   "mkWrapper": {
     "binaryPath": {
-      "description": "Path within the input derivation to the binary which should be wrapped",
+      "description": "Path within the input derivation to the binary which should be wrapped.",
       "type": "string"
     },
     "environment": {
       "default": {},
-      "description": "Environment variables to be set during the execution of the wrapped program",
+      "description": "Environment variables to be set during the execution of the wrapped program.",
       "type": "attrsOf<union<null,pathLike,readFromFileAtRuntime>>"
     },
     "extraPaths": {
@@ -783,6 +783,13 @@
     "settings": {
       "description": "Settings to be injected into the wrapped package's configuration file. See the termfilechooser documentation for valid options: https://github.com/hunkyburrito/xdg-desktop-portal-termfilechooser#configuration",
       "type": "attrs"
+    }
+  },
+
+  "themeJet": {
+    "theme": {
+      "mutatorType": "attrs",
+      "type": "attrsOf<themeStruct>"
     }
   },
 
