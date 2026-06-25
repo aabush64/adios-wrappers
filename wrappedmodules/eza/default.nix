@@ -23,7 +23,7 @@
     ezm = "eza --no-time --no-filesize";
   };
 
-  options.themes.defaultFunc = {inputs}:
+  options.theme.defaultFunc = {inputs}:
     (import ./themeyml.nix {
       inherit (inputs.themeJet {}) theme;
     });

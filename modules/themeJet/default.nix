@@ -73,7 +73,7 @@
         hexLow = mapAttrs (name: value: toLower value.hex) keys;
 
         rgb = mapAttrs (name: value:
-          concatStringsSep "," (map toString (attrValues value.rgb)))
+          concatStringsSep ", " (map toString (attrValues value.rgb)))
         keys;
         rgbList = mapAttrs (name: value:
           attrValues value.rgb)

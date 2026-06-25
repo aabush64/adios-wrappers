@@ -37,7 +37,7 @@
             # wrappers.wezterm
             # wrappers.dunst
             # wrappers.dunst
-            
+            wrappers.gitui
           ];
           shellHook = ''
             # wezterm start --class "weztest" 
