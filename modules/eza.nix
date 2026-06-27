@@ -31,7 +31,7 @@
 
         See `https://github.com/eza-community/eza/blob/main/man/eza_colors-explanation.5.md` for valid options
 
-        Disjoint with the `themeConfig` option.
+        Disjoint with the `theme` option.
       '';
     };
 
@@ -48,7 +48,7 @@
       inherit (inputs.nixpkgs.pkgs) formats;
       generator = formats.json {};
     in
-    assert !(options ? themeConfig && options ? themeFile);
+    assert !(options ? theme && options ? themeFile);
     inputs.mkWrapper {
       inherit (options) package flags;
       symlinks = {
