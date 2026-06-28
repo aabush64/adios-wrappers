@@ -83,8 +83,8 @@
 
     package = {
       type = types.derivation;
-      description = "The helix package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.helix;
+      description = "The helix package to be wrapped.";
     };
   };
 

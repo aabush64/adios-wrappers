@@ -31,8 +31,8 @@
 
     package = {
       type = types.derivation;
-      description = "The tealdeer package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.tealdeer;
+      description = "The tealdeer package to be wrapped.";
     };
   };
 

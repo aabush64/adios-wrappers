@@ -18,8 +18,8 @@
 
     package = {
       type = types.derivation;
-      description = "The niri package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.niri;
+      description = "The niri package to be wrapped.";
     };
   };
 

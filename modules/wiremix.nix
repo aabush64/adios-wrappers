@@ -31,8 +31,8 @@
 
     package = {
       type = types.derivation;
-      description = "The wiremix package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.wiremix;
+      description = "The wiremix package to be wrapped.";
     };
   };
 

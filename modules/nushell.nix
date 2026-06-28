@@ -38,8 +38,8 @@
 
     package = {
       type = types.derivation;
-      description = "The nushell package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.nushell;
+      description = "The nushell package to be wrapped.";
     };
   };
 

@@ -34,8 +34,8 @@
 
     package = {
       type = types.derivation;
-      description = "The ripgrep package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.ripgrep;
+      description = "The ripgrep package to be wrapped.";
     };
   };
 

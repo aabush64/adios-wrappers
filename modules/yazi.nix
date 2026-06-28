@@ -100,16 +100,6 @@
 
     extraPackages = {
       type = types.listOf types.derivation;
-      description = ''
-        Packages to be automatically added as Yazi dependencies.
-
-        This defaults to the optionalDeps of the Yazi package in nixpkgs, set here:
-        https://github.com/NixOS/nixpkgs/blob/master/pkgs/by-name/ya/yazi/package.nix#L8
-
-        The dependency `File` is added regardless of the content of this option, because it's non-optional.
-        See the Yazi docs on this topic:
-        https://yazi-rs.github.io/docs/installation
-      '';
       defaultFunc =
         { inputs }:
         with inputs.nixpkgs.pkgs; [
@@ -125,6 +115,16 @@
           chafa
           resvg
         ];
+      description = ''
+        Packages to be automatically added as Yazi dependencies.
+
+        This defaults to the optionalDeps of the Yazi package in nixpkgs, set here:
+        https://github.com/NixOS/nixpkgs/blob/master/pkgs/by-name/ya/yazi/package.nix#L8
+
+        The dependency `File` is added regardless of the content of this option, because it's non-optional.
+        See the Yazi docs on this topic:
+        https://yazi-rs.github.io/docs/installation
+      '';
     };
     plugins = {
       type = types.attrsOf types.pathLike;
@@ -145,11 +145,11 @@
 
     package = {
       type = types.derivation;
+      defaultFunc = { inputs }: inputs.nixpkgs.pkgs.yazi-unwrapped;
       description = ''
         The yazi package to be wrapped.
         Note that this should use a `-unwrapped` variant.
       '';
-      defaultFunc = { inputs }: inputs.nixpkgs.pkgs.yazi-unwrapped;
     };
   };
 

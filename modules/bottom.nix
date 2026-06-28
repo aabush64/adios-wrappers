@@ -31,8 +31,8 @@
 
     package = {
       type = types.derivation;
-      description = "The bottom package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.bottom;
+      description = "The bottom package to be wrapped.";
     };
   };
 

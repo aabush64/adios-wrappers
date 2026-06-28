@@ -33,8 +33,8 @@
 
     package = {
       type = types.derivation;
-      description = "The hyfetch package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.hyfetch;
+      description = "The hyfetch package to be wrapped.";
     };
   };
 

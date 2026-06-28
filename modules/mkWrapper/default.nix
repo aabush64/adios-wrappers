@@ -13,12 +13,12 @@ in {
     };
     name = {
       type = types.string;
+      defaultFunc = { options }: options.package.pname;
       description = ''
         The name of the package to be wrapped.
 
         This determines the pname of the wrapped package, as well as the derivation to be automatically run when using `nix run`.
       '';
-      defaultFunc = { options }: options.package.pname;
     };
     extraPaths = {
       type = types.listOf types.derivation;
@@ -27,8 +27,8 @@ in {
     };
     binaryPath = {
       type = types.string;
-      description = "Path within the input derivation to the binary which should be wrapped";
       defaultFunc = { options }: "$out/bin/${options.name}";
+      description = "Path within the input derivation to the binary which should be wrapped";
     };
     preWrap = {
       type = nullOrString;

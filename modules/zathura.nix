@@ -61,8 +61,8 @@
 
     package = {
       type = types.derivation;
-      description = "The zathura package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.zathura;
+      description = "The zathura package to be wrapped.";
     };
   };
 

@@ -68,8 +68,8 @@
 
     package = {
       type = types.derivation;
-      description = "The waybar package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.waybar;
+      description = "The waybar package to be wrapped.";
     };
   };
 

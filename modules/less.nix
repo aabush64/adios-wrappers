@@ -36,8 +36,8 @@
 
     package = {
       type = types.derivation;
-      description = "The less package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.less;
+      description = "The less package to be wrapped.";
     };
   };
 

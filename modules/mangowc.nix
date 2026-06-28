@@ -54,8 +54,8 @@
 
     package = {
       type = types.derivation;
-      description = "The mangowc package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.mangowc;
+      description = "The mangowc package to be wrapped.";
     };
   };
 

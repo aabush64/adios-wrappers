@@ -56,8 +56,8 @@
 
     package = {
       type = types.derivation;
-      description = "The irssi package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.irssi;
+      description = "The irssi package to be wrapped.";
     };
   };
 

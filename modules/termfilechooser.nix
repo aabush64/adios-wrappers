@@ -27,8 +27,8 @@
 
     package = {
       type = types.derivation;
-      description = "The xdg-desktop-portal-termfilechooser package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.xdg-desktop-portal-termfilechooser;
+      description = "The xdg-desktop-portal-termfilechooser package to be wrapped.";
     };
   };
 

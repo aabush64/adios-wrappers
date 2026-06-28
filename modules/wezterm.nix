@@ -41,8 +41,8 @@
 
     package = {
       type = types.derivation;
-      description = "The wezterm package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.wezterm;
+      description = "The wezterm package to be wrapped.";
     };
   };
 

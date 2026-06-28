@@ -167,8 +167,8 @@
 
     package = {
       type = types.derivation;
-      description = "The Fish package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.fish;
+      description = "The Fish package to be wrapped.";
     };
   };
 

@@ -54,8 +54,8 @@
 
     package = {
       type = types.derivation;
-      description = "The mpv package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.mpv-unwrapped;
+      description = "The mpv package to be wrapped.";
     };
   };
 

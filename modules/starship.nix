@@ -66,8 +66,8 @@
 
     package = {
       type = types.derivation;
-      description = "The starship package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.starship;
+      description = "The starship package to be wrapped.";
     };
   };
 
