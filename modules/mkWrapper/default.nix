@@ -28,7 +28,7 @@ in {
     binaryPath = {
       type = types.string;
       defaultFunc = { options }: "$out/bin/${options.name}";
-      description = "Path within the input derivation to the binary which should be wrapped";
+      description = "Path within the input derivation to the binary which should be wrapped.";
     };
     preWrap = {
       type = nullOrString;
@@ -56,7 +56,7 @@ in {
           })
         ]
       );
-      description = "Environment variables to be set during the execution of the wrapped program";
+      description = "Environment variables to be set during the execution of the wrapped program.";
       default = {};
     };
     symlinks = {
