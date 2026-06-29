@@ -21,4 +21,4 @@ let
       args.adios;
 in
 
-adios.lib.importModules ./modules
+adios.lib.importModules { directory = ./modules; }

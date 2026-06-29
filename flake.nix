@@ -32,11 +32,11 @@
           allowSubstitutes = false;
           packages = [
             wrappers.eza
-            # wrappers.fish
-            # wrappers.starship
-            # wrappers.wezterm
-            # wrappers.dunst
-            # wrappers.dunst
+            wrappers.fish
+            wrappers.starship
+            wrappers.wezterm
+            wrappers.dunst
+            wrappers.dunst
             wrappers.gitui
           ];
           shellHook = ''

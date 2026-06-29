@@ -53,8 +53,8 @@
 
     package = {
       type = types.derivation;
-      description = "The git package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.git;
+      description = "The git package to be wrapped.";
     };
   };
 

@@ -73,8 +73,8 @@
 
     package = {
       type = types.derivation;
-      description = "The zellij package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.zellij;
+      description = "The zellij package to be wrapped.";
     };
   };
 

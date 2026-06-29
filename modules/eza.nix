@@ -37,8 +37,8 @@
 
     package = {
       type = types.derivation;
-      description = "The eza package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.eza;
+      description = "The eza package to be wrapped.";
     };
   };
 

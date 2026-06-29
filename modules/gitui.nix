@@ -134,8 +134,8 @@
 
     package = {
       type = types.derivation;
-      description = "The gitui package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.gitui;
+      description = "The gitui package to be wrapped.";
     };
   };
 

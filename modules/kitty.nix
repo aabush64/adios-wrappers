@@ -48,8 +48,8 @@
 
     package = {
       type = types.derivation;
-      description = "The kitty package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.kitty;
+      description = "The kitty package to be wrapped.";
     };
   };
 

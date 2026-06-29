@@ -40,8 +40,8 @@
     };
     package = {
       type = types.derivation;
-      description = "The jujutsu package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.jujutsu;
+      description = "The jujutsu package to be wrapped.";
     };
   };
 

@@ -41,8 +41,8 @@
 
     package = {
       type = types.derivation;
-      description = "The wezterm package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.wezterm;
+      description = "The wezterm package to be wrapped.";
     };
   };
 
@@ -73,7 +73,7 @@
             }) options.configModules
           )
         else
-          {}
+          { }
       );
       environment = {
         WEZTERM_CONFIG_FILE = "$out/wezterm-config/wezterm.lua";
@@ -83,6 +83,6 @@
     };
 
   meta = {
-    maintainers = [ "mango " ];
+    maintainers = [ "mango" ];
   };
 }

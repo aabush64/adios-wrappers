@@ -71,8 +71,8 @@
 
     package = {
       type = types.derivation;
-      description = "The fuzzel package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.fuzzel;
+      description = "The fuzzel package to be wrapped.";
     };
   };
 

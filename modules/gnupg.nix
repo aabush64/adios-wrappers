@@ -31,8 +31,8 @@
 
     package = {
       type = types.derivation;
-      description = "The gnupg package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.gnupg;
+      description = "The gnupg package to be wrapped.";
     };
   };
 

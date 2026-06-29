@@ -50,8 +50,8 @@
 
     package = {
       type = types.derivation;
-      description = "The direnv package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.direnv;
+      description = "The direnv package to be wrapped.";
     };
   };
 

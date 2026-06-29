@@ -34,8 +34,8 @@
 
     package = {
       type = types.derivation;
-      description = "The hydrus package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.hydrus;
+      description = "The hydrus package to be wrapped.";
     };
   };
 

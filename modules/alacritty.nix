@@ -31,8 +31,8 @@
 
     package = {
       type = types.derivation;
-      description = "The alacritty package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.alacritty;
+      description = "The alacritty package to be wrapped.";
     };
   };
 

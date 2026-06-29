@@ -1,7 +1,8 @@
 { types, ... }:
 let
   nullOrString = types.nullOr types.string;
-in {
+in
+{
   inputs = {
     nixpkgs.from = { parent }: parent.nixpkgs;
   };
@@ -13,22 +14,22 @@ in {
     };
     name = {
       type = types.string;
+      defaultFunc = { options }: options.package.pname;
       description = ''
         The name of the package to be wrapped.
 
         This determines the pname of the wrapped package, as well as the derivation to be automatically run when using `nix run`.
       '';
-      defaultFunc = { options }: options.package.pname;
     };
     extraPaths = {
       type = types.listOf types.derivation;
       description = "Extra derivations which should have their directory structures replicated in the final package.";
-      default = [];
+      default = [ ];
     };
     binaryPath = {
       type = types.string;
-      description = "Path within the input derivation to the binary which should be wrapped.";
       defaultFunc = { options }: "$out/bin/${options.name}";
+      description = "Path within the input derivation to the binary which should be wrapped";
     };
     preWrap = {
       type = nullOrString;
@@ -57,7 +58,7 @@ in {
         ]
       );
       description = "Environment variables to be set during the execution of the wrapped program.";
-      default = {};
+      default = { };
     };
     symlinks = {
       type = types.attrsOf (types.nullOr types.pathLike);
@@ -66,12 +67,12 @@ in {
         Each key specifies the location within the derivation to create the symlink.
         Each value specifies where the symlink should be directed to.
       '';
-      default = {};
+      default = { };
     };
     flags = {
       type = types.listOf types.string;
       description = "Flags to be automatically appended to the wrapped program.";
-      default = [];
+      default = [ ];
     };
   };
 
@@ -87,7 +88,7 @@ in {
     { options, inputs }:
     let
       inherit (inputs.nixpkgs.pkgs) stdenvNoCC callPackage lndir;
-      makeBinaryWrapper = callPackage ./makeBinaryWrapper/package.nix {};
+      makeBinaryWrapper = callPackage ./makeBinaryWrapper/package.nix { };
       environmentStr = concatStringsSep " " (
         concatMap (
           var:
@@ -95,7 +96,7 @@ in {
             value = options.environment.${var};
           in
           if value == null then
-            []
+            [ ]
           else if (value.readFromFile or false) then
             [ "--set-from-file ${var} \"${value.value}\"" ]
           else
@@ -109,7 +110,7 @@ in {
             destination = options.symlinks.${symlink};
           in
           if destination == null then
-            []
+            [ ]
           else
             [
               "mkdir -p $(dirname ${symlink})"
@@ -123,12 +124,12 @@ in {
       name = "${options.name}-wrapped";
       buildInputs = [ makeBinaryWrapper ];
       paths =
-        if options.extraPaths == [] then
+        if options.extraPaths == [ ] then
           [ "${options.package}" ]
         else
           map (path: "${path}") ([ options.package ] ++ options.extraPaths);
       meta.mainProgram = options.name;
-      passthru = options.package.passthru or {};
+      passthru = options.package.passthru or { };
 
       preferLocalBuild = true;
       allowSubstitutes = false;
@@ -143,7 +144,7 @@ in {
         ${symlinkedStr}
         ${ifNotNull options.preWrap}
         ${
-          if environmentStr == "" && options.wrapperArgs == "" && options.flags == [] then
+          if environmentStr == "" && options.wrapperArgs == "" && options.flags == [ ] then
             ""
           else
             ''

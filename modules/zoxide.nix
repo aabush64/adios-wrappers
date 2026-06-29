@@ -26,8 +26,8 @@
 
     package = {
       type = types.derivation;
-      description = "The zoxide package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.zoxide;
+      description = "The zoxide package to be wrapped.";
     };
   };
 

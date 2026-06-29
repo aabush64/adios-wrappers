@@ -41,8 +41,8 @@
 
     package = {
       type = types.derivation;
-      description = "The dunst package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.dunst;
+      description = "The dunst package to be wrapped.";
     };
   };
 

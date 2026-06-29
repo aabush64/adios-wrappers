@@ -31,8 +31,8 @@
 
     package = {
       type = types.derivation;
-      description = "The fastfetch package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.fastfetch;
+      description = "The fastfetch package to be wrapped.";
     };
   };
 

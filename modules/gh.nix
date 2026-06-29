@@ -38,8 +38,8 @@
 
     package = {
       type = types.derivation;
-      description = "The gh package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.gh;
+      description = "The gh package to be wrapped.";
     };
   };
 

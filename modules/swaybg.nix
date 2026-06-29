@@ -31,8 +31,8 @@
 
     package = {
       type = types.derivation;
-      description = "The swaybg package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.swaybg;
+      description = "The swaybg package to be wrapped.";
     };
   };
 

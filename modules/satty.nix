@@ -31,8 +31,8 @@
 
     package = {
       type = types.derivation;
-      description = "The Satty package to be wrapped.";
       defaultFunc = { inputs }: inputs.nixpkgs.pkgs.satty;
+      description = "The Satty package to be wrapped.";
     };
   };
 
