@@ -3,7 +3,6 @@ let
   inherit (pkgs) lib;
 
   root = {
-    name = "root";
     modules = lib.recursiveUpdate adios-wrappers (adios.lib.importModules ./wrappers);
   };
 
