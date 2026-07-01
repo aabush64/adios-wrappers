@@ -8,7 +8,6 @@ let
   adios-wrappers = import sources.adios-wrappers { inherit adios; };
 
   root = {
-    name = "root";
     modules = lib.recursiveUpdate adios-wrappers (adios.lib.importModules ./wrappers);
   };
 

@@ -139,165 +139,81 @@ description = ''
 description = "The $program_name package to be wrapped.";
 ```
 
-## Option Naming 
+## Option naming conventions
 
-Option names typically take the form of `optionMethod` (camelCase) where `option` is the descriptor of what is being
-changed/injected, and `Method` describes how the option is being implemented. For example:
+We try to use a common spec for naming options. A list is provided here of common option purposes and what the option
+should be named.
 
-`completions`: Option that generates completions from a nix attrset
+### Common option names
 
-`completionsFiles`: Option that generates completions by importing files
+`package`: Sets the derivation to be wrapped by the module. Required for all modules (except in special cases).
 
-When writing modules, options that only differ in suffix do not contain whitespaces between them, all other options
-should have whitespace between them.
+`settings`: An attrset representing the primary config file. Used when a file format has a canonical representation in
+Nix (think JSON, TOML, YAML, etc). Typically disjoint with a `configFile` option.
 
-The section below contains naming convetions often used in module options and their expected uses.
+`configContents`: The contents of the primary config file. Used when a file format can't be canonically represented in
+Nix (think shell scripts, KDL, and turing-complete languages). Typically disjoint with a `configFile` option.
 
-### Naming Conventions
+`configFile`: Path of the primary config file, symlinked directly into the wrapper. Typically disjoint with a `settings`
+or `configContents` option.
 
-#### Options
+`flags`: A list of flags to be passed to the program, if it's primarily configured via flags instead of a config file
+(think of something like ripgrep). _Sometimes_ disjoint with a `configFile` option if the program also supports reading
+from a config file.
 
-Not all options listed are required to be in the module, with the exception of `package` when wrapping a derivation.
+`keybinds`: An attrset representing custom keybinds. Typically disjoint with a `keybindsFile` option.
 
-`config`/`settings`: Options that set a package's primary configuration file (eg. `.rc`, `.json`, `.ini`, `.yaml` files),
-only one of the two naming choices should be used throughout the module to reduce confusion.
+`keybindsFile`: Path of the custom keybinds file, symlinked directly into the wrapper. Typically disjoint with a
+`keybinds` option.
 
-`flags`: Options that set the command line flags passed to the wrapped package.
+`theme`: An attrset representing a custom theme. Named "theme" instead of "themes" if the program only supports a
+single custom theme. Typically disjoint with a `themeFile` option.
 
-`package`: Option that sets the derivation that is wrapped by the module.
+`themes`: An attribute set representing multiple custom themes. Named "themes" instead of "theme" if the program supports
+defining multiple themes. Typically disjoint with a `themeFiles` option.
 
-#### Suffixes
+`themeFile`: Path of the custom theme file, symlinked directly into the wrapper. Typically disjoint with a `theme`
+option.
 
-`optionContents`: Options that *generate* a **file** in the wrapped package's directory from a nix string by copying
-its contents verbatim
+`themeFiles`: Attribute set of paths, each containing a custom theme file to be symlinked directly into the wrapper.
+Typically disjoint with a `themes` option.
 
-`optionFile(s)`: Options that *import or symlink* a **file(s)** directly into the wrapped package's $out path
+### If your option doesn't look like one of these
 
-`optionDir`: Options that *import or symlink* a **directory** directly into the wrapped package's $out path
+Try to match the _vibes_ of this list, if your usecase isn't listed. A `modules` option should likely come along with a
+`moduleFiles` option, for example.
 
-## mkWrapper usage
+### Whitespace
 
-`mkWrapper` is a convinience function to standardize how derivations are wrapped in `adios-wrappers`, and
-is itself a module. It returns a derivation using `stdenvNoCC.mkDerivation`. [Read about stdenv here.](https://ryantm.github.io/nixpkgs/stdenv/stdenv/)
-
-Example usage in a module wrapping a nixpkgs derivation (does not have to be from nixpkgs, just has to be a derivation):
-
-```nix
-{ types, ...} @ adios:
-{
-  inputs.mkWrapper.from = { parent }: parent.mkWrapper;
-  inputs.
-
-  options = {
-    # Set options to be used in `impl`
-
-    package = {
-      type = types.derivation;
-      description = "The $program_name to be wrapped"
-    };
-  };
-
-  impl = { options, inputs }:
-    inputs.mkWrapper {
-      package = some_derivation;
-      
-      
-    }
-}
-```
-
-### mkWrapper options
-
-Types use [korora types](https://github.com/adisbladis/korora/)
-
-#### `package`
-
-Type: `derivation`
-
-The package to be wrapped.
-
-#### `name`
-
-Type: `string`
-
-The name of the package to be wrapped.
-
-This determines the pname of the wrapped package, as well as the derivation to be automatically run when using `nix run`.
-
-Defaults to `package.pname`.
-
-#### `extraPaths`
-
-Type: `listOf<derivation>`
-
-Extra derivations which should have their directory structures replicated in the final package.
-
-#### `binaryPath`
-
-Type: `string`
-
-Path within the input derivation to the binary which should be wrapped.
-
-Defaults to `$out/bin/${name}`
-
-#### `preWrap`
-
-Type: `nullOr<String>`
-
-Commands to be run before the wrapping process in the build steps.
-
-#### `postWrap`
-
-Type: `nullOr<String>`
-
-Commands to be run after the wrapping process in the build steps.
-
-#### `wrapperArgs`
-
-Type: `nullOr<String>`
-
-Extra args passed directly to wrapProgram.
-
-#### `environment`
-
-Type: `attrsOf<union<null,pathLike,readFromFileAtRuntime>>`
-
-Environment variables to be set during the execution of the wrapped program.
-
-#### `symlinks`
-
-Type: `attrsOf<nullOr<pathLike>>`
-
-Symlinks to be included in the resulting derivation.
-Each key specifies the location within the derivation to create the symlink.
-Each value specifies where the symlink should be directed to.
-
-#### `flags`
-
-Type: `listOf<string>`
-
-Flags to be automatically appended to the wrapped program.
+When defining the `options` attrset, disjoint options should be next to each other, with the RFC42 option first, There
+should then be newlines between each "set" of options (so between `settings` / `configFile` and `keybinds` /
+`keybindsFile`.
 
 ## Docs generation
 
-Documentation is generated by `dev/generate-docs.sh` and produces an `options.json` file containing all options from modules in
-the `/modules` folder, including their name, description, type and default value.
+Documentation is generated by `dev/generate-docs.sh` and produces an `options.json` file that contains docs on all
+modules.
 
-When PRing changes modifying the `/modules` directory, regenerate the `options.json` file by doing the following:
+When PRing changes that modify the options of a module, regenerate the `options.json` file by doing the following:
 
 ```
 dev/generate-docs.sh > docs/options.json
 ```
 
+This will be checked in CI.
+
 ## Formatting
 
-A specific fork of `nixfmt` is used for formatting modules (and other .nix files).
+A fork of `nixfmt` is used for formatting modules (and other .nix files).
 
-When PRing changes to these files, enter the formatting shell with
-```bash
-  nix-shell dev/shell.nix
+When PRing changes that modify these files, enter the devshell with:
+```sh
+direnv allow # if you have direnv installed (recommended)
+nix-shell dev/shell.nix # if you don't have direnv installed
 ```
-and format changed files with
-```bash
-  nixfmt
+and format changed files with:
+```sh
+nixfmt filename # in-editor formatting is recommended for UX
 ```
+
+This will be checked in CI.

@@ -12,13 +12,11 @@ in
       type = types.derivation;
       description = "The package to be wrapped.";
     };
-    name = {
+    pname = {
       type = types.string;
       defaultFunc = { options }: options.package.pname;
       description = ''
         The name of the package to be wrapped.
-
-        This determines the pname of the wrapped package, as well as the derivation to be automatically run when using `nix run`.
       '';
     };
     extraPaths = {
@@ -26,10 +24,23 @@ in
       description = "Extra derivations which should have their directory structures replicated in the final package.";
       default = [ ];
     };
+    binaryName = {
+      type = types.string;
+      description = ''
+        The name of the binary to be wrapped.
+
+        This sets the `meta.mainProgram` of the wrapped package, and the default `binaryPath` to wrap with.
+      '';
+      defaultFunc = { options }: options.package.meta.mainProgram or options.pname;
+    };
     binaryPath = {
       type = types.string;
-      defaultFunc = { options }: "$out/bin/${options.name}";
-      description = "Path within the input derivation to the binary which should be wrapped";
+      defaultFunc = { options }: "$out/bin/${options.binaryName}";
+      description = ''
+        The path of the binary within the input derivation to be wrapped.
+
+        This should only be set if the binary isn't inside $out/bin. If it is, `binaryName` can be used instead.
+      '';
     };
     preWrap = {
       type = nullOrString;
@@ -58,7 +69,7 @@ in
         ]
       );
       description = "Environment variables to be set during the execution of the wrapped program.";
-      default = { };
+      default = {};
     };
     symlinks = {
       type = types.attrsOf (types.nullOr types.pathLike);
@@ -121,15 +132,15 @@ in
       flagsStr = concatStringsSep " " (map (flag: "--add-flag \"${flag}\"") options.flags);
     in
     stdenvNoCC.mkDerivation {
-      name = "${options.name}-wrapped";
+      name = "${options.pname}-wrapped";
       buildInputs = [ makeBinaryWrapper ];
       paths =
         if options.extraPaths == [ ] then
           [ "${options.package}" ]
         else
           map (path: "${path}") ([ options.package ] ++ options.extraPaths);
-      meta.mainProgram = options.name;
-      passthru = options.package.passthru or { };
+      meta.mainProgram = options.binaryName;
+      passthru = options.package.passthru or {};
 
       preferLocalBuild = true;
       allowSubstitutes = false;
