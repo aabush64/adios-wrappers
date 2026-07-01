@@ -1,85 +1,112 @@
-{types, ...} @ adios: {
+{ types, ... }@adios:
+{
   inputs = {
-    nixpkgs.from = {parent}: parent.nixpkgs;
+    nixpkgs.from = { parent }: parent.nixpkgs;
   };
 
   options = {
     theme = {
+      # Capitals to distinguish input vs output
       # Generalized theme file schema
       # {
-      #   fg1.hex = "#282828"
-      #   fg2.rgb = {
+      #   fg1.HEX = "#282828"
+      #   fg2.RGB = {
       #     r = 24; g = 24; b = 24;
       #   }
       # }
-      type =
-        types.attrsOf
-        ((types.struct "themeStruct" {
+      type = types.attrsOf (
+        (types.struct "themeStruct" {
           HEX = types.string;
-          rgb = types.attrsOf types.int;
-        }).override {
-          total = false;
-          unknown = false;
-        });
+          RGB = types.attrsOf types.int;
+        }).override
+          {
+            total = false;
+            # Add a remove attrs so that other formats can be passed if wanted
+            unknown = true;
+          }
+      );
       # Color Values we can Translate
       # RGB - {r = 23; g = 24; b = 25;};
       # HEX - "#FBCC12";
-      # HSL -- Lets wait to add this for now
-      # HSV -- Lets wait to add this for now
-      # OKCLH -- Lets wait to add this for now
       mutatorType = types.attrs;
       mergeFunc = adios.lib.merge.attrs.recursively;
     };
+
+    # Aliases assigned after keys are generated but before the convenience functions so they can still be available
+    aliases = {
+      type = types.attrsOf types.string;
+      mutatorType = types.attrs;
+      mergeFunc = adios.lib.merge.attrs.flat;
+    };
   };
 
-  impl = {
-    options,
-    inputs,
-  }: let
-    inherit (inputs.nixpkgs.lib) toLower toUpper;
-    inherit (import ./conversions.nix {inherit (inputs.nixpkgs) lib;}) rgbToHex hexToRgb;
-    inherit (builtins) mapAttrs concatStringsSep attrValues;
+  impl =
+    {
+      options,
+      inputs,
+    }:
+    let
+      inherit (inputs.nixpkgs.lib) toLower toUpper;
+      inherit (import ./conversions.nix { inherit (inputs.nixpkgs) lib; }) rgbToHex hexToRgb;
+      inherit (builtins)
+        mapAttrs
+        concatStringsSep
+        attrValues
+        removeAttrs
+        ;
 
-    genTheme = themeSet:
-      mapAttrs (
-        name: value:
+      genTheme =
+        themeSet:
+        mapAttrs (
+          _: value:
           (
-            if value ? RGB
-            then {rgb = value.RGB;}
-            else if value ? HEX
-            then {rgb = hexToRgb (toUpper value.HEX);}
-            else throw "You done fucked up"
+            if value ? RGB then
+              { rgb = value.RGB; }
+            else if value ? HEX then
+              { rgb = hexToRgb (toUpper value.HEX); }
+            else
+              throw "You done fucked up"
           )
           // (
-            if value ? HEX
-            then {hex = value.HEX;}
-            else if value ? RGB
-            then {hex = rgbToHex value.RGB;}
-            else throw "You done fucked up"
+            if value ? HEX then
+              { hex = value.HEX; }
+            else if value ? RGB then
+              { hex = rgbToHex value.RGB; }
+            else
+              throw "You done fucked up"
           )
-      )
-      themeSet;
-  in
-    assert !(options ? themeFile && options ? theme); rec {
-      theme = rec {
-        keys = (
-          if options ? theme
-          then genTheme options.theme
-          else throw "How? Why? Porque?"
-        );
+          // (removeAttrs value [
+            "HEX"
+            "RGB"
+          ])
+        ) themeSet;
 
-        # Prints out hex string in standard all caps
-        hex = mapAttrs (name: value: value.hex) keys;
-        hexLow = mapAttrs (name: value: toLower value.hex) keys;
+      addAliases =
+        generatedTheme: aliases:
+        mapAttrs (
+          name: value:
+          generatedTheme.${value} or throw
+            "Can't alias ${name} to ${value}, does not exist in the generated theme."
+        ) aliases;
 
-        rgb = mapAttrs (name: value:
-          concatStringsSep ", " (map toString (attrValues value.rgb)))
-        keys;
-        rgbList = mapAttrs (name: value:
-          attrValues value.rgb)
-        keys;
-      };
+      keysSansAlias = genTheme options.theme;
+      keysWithAlias =
+        if !(options ? aliases) then
+          keysSansAlias
+        else
+          keysSansAlias // addAliases keysSansAlias options.aliases;
+    in
+    # Module isnt really usable if you're not... setting this?
+    assert options ? theme;
+    {
+      # Prints out hex string in standard all caps
+      hex = mapAttrs (_: value: value.hex) keysWithAlias;
+      hexLow = mapAttrs (_: value: toLower value.hex) keysWithAlias;
 
-      themeColors = theme.keys;
-    };
+      rgb = mapAttrs (
+        _: value: concatStringsSep ", " (map toString (attrValues value.rgb))
+      ) keysWithAlias;
+      rgbList = mapAttrs (_: value: attrValues value.rgb) keysWithAlias;
+    }
+    // keysWithAlias;
 }
